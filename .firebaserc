@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "iotassignment-aeea1"
+  },
+  "targets": {
+    "iotassignment-aeea1": {
+      "hosting": {
+        "iot-app": [
+          "iotassignment-aeea1"
+        ]
+      }
+    }
+  }
+}
