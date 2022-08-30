@@ -15,7 +15,7 @@ export class FirebaseService {
   obsr_UpdatedSnapshot = this.updatedSnapshot.asObservable();
 
   constructor() {
-    initializeApp(environment.firebase);
+    initializeApp(environment.firebase1);
     this.db = getFirestore();
     this.studentCol = collection(this.db, 'students');
 
@@ -55,4 +55,6 @@ export class FirebaseService {
     await updateDoc(docRef, { name, age })
     return;
   }
+
 }
+
