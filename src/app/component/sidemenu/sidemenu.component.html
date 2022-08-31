@@ -1,10 +1,7 @@
-<!-- <div class="nav_sidebar"> -->
-
-
 <nav class="navbar" [class.nav-slide]="sidebarShow">
   <div class="header-component">
     <a class="logo-name" href="index.html">myofficeapp</a>
-    <span class="material-icons mat-light burgermenu" (click)="showSideBar()">menu</span>
+    <!-- <span class="material-icons mat-light burgermenu" (click)="showSideBar()">menu</span> -->
   </div>
   <div class="navbar-right">
     <a class="component-bkg " (click)="notifications.toggle($event)">
@@ -23,7 +20,7 @@
     </a>
   </div>
 </nav>
-<!-- </div> -->
+
 
 
 <body>
@@ -43,12 +40,59 @@
   </div>
   <!-- default sidebar  -->
   <div class="default-sidebar">
-    <p>test</p>
+    <div class="vertical-navbar">
+      <!-- default user img  -->
+      <div class="staffImg">
+        <img src="../../../assets/d-user.png" alt="default-user">
+      </div>
+      <!-- dashboard  -->
+      <div class="icon-vertical v-nav-active" pTooltip="Report" tooltipPosition="right">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/dashboard.png" alt="dashboard">
+        </div>
+      </div>
+      <!-- ventilation  -->
+      <div class="icon-vertical" pTooltip="Ventilation" tooltipPosition="right">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/ventilation.png" alt="ventilation">
+        </div>
+      </div>
+      <!-- parking  -->
+      <div class="icon-vertical" pTooltip="Parking" tooltipPosition="right">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/parking.png" alt="parking">
+        </div>
+      </div>
+      <!-- lighting  -->
+      <div class="icon-vertical" pTooltip="Lighting Grid" tooltipPosition="right">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/lighting.png" alt="lighting">
+        </div>
+      </div>
+      <!-- attendance  -->
+      <div class="icon-vertical" pTooltip="Attendance" tooltipPosition="right">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/attendance.png" alt="attendance">
+        </div>
+      </div>
+      <!-- doorbell  -->
+      <div class="icon-vertical" pTooltip="Doorbell" tooltipPosition="right">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/doorbell.png" alt="doorbell">
+        </div>
+      </div>
+      <!-- report  -->
+      <div class="icon-vertical" pTooltip="Report" tooltipPosition="right">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/report.png" alt="report">
+        </div>
+      </div>
+    </div>
   </div>
   <div class="main">
-    <button class="sidebar-open btnsidebar" (click)="sidebarShow = !sidebarShow">
+    <!-- <button class="sidebar-open btnsidebar" (click)="sidebarShow = !sidebarShow">
       Open Sidebar
-    </button>
+    </button> -->
   </div>
 
 

@@ -8,29 +8,7 @@
 body {
   color: $active-font-color;
   background-color: $background-color;
-  display: flex;
-}
-
-.nav_sidebar {
-  display: flex;
-}
-
-.component-bkg {
-  background-color: $component-background-color;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.09);
-  }
-}
-
-.header-component {
-  margin: 0 15px 0 15px;
-  text-decoration: none;
-}
-
-.burgermenu {
-  margin-left: 10px
+  //   display: flex;
 }
 
 //* function --------------------------------------------
@@ -60,7 +38,25 @@ body {
   background-color: transparent;
 }
 
-//* header --------------------------------------------
+//* nav --------------------------------------------
+.component-bkg {
+  background-color: $component-background-color;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.09);
+  }
+}
+
+.burgermenu {
+  margin-left: 10px
+}
+
+.header-component {
+  margin: 0 15px 0 15px;
+  text-decoration: none;
+}
+
 .logo-name {
   font-family: 'Orbitron', sans-serif;
   color: $active-font-color;
@@ -91,14 +87,11 @@ body {
   #{&}-right {
     @include flexCenter(row);
   }
-
-
 }
 
 .navbar.nav-slide {
-
   //   transform: translateX(350px);
-  transition: ease-in-out 600ms transform;
+  //   transition: ease-in-out 600ms transform;
 }
 
 //* default side bar --------------------------------------------
@@ -111,6 +104,49 @@ body {
   background-color: $component-background-color;
   overflow-x: hidden;
   padding-top: 20px;
+}
+
+.vertical-navbar {
+  @include flexCenter(column);
+  width: 100%;
+}
+
+.staffImg {
+  @include flexCenter(row);
+  margin-bottom: 15px;
+
+  img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+  }
+}
+
+.icon-vertical {
+  margin-bottom: 15px;
+  width: 100%;
+  @include flexCenter(row);
+
+  &:hover {
+    background-color: #0F1015;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    cursor: pointer;
+  }
+}
+
+.inner-icon-container {
+  margin: 10px 0;
+  padding: 8px 10px 10px 10px;
+  background-color: #2b2b2b;
+  border-radius: 50%;
+}
+
+.v-nav-active {
+  border-left: 5px solid #1F51FF;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  background-color: #0F1015;
 }
 
 
@@ -154,7 +190,7 @@ body {
   transform: translateX(-70%);
   transition: ease-in-out 300ms transform;
   width: 250px;
-  //   animation: fadeAway 3s;
+  display: none; // not using the full sidenavbar anymore
 }
 
 @keyframes fadeAway {

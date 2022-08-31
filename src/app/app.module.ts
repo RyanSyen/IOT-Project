@@ -41,6 +41,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { RealTimeDBComponent } from './component/real-time-db/real-time-db.component';
 import { TestComponent } from './component/test/test.component';
@@ -79,6 +80,7 @@ import { SidemenuComponent } from './component/sidemenu/sidemenu.component';
     MatIconModule,
     OverlayPanelModule,
     ToastModule,
+    TooltipModule,
   ],
   providers: [
     ScreenTrackingService, UserTrackingService, MessageService

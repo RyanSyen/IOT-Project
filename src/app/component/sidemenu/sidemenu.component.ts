@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-sidemenu',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidemenuComponent implements OnInit {
 
-  sidebarShow: boolean = true;
+  sidebarShow: boolean = false;
   notificationModal: boolean = false;
   loggedIn: boolean = false;
 
@@ -15,10 +16,10 @@ export class SidemenuComponent implements OnInit {
   overlayPanelNarrow = 'overlay-panel-narrow';
 
 
-  constructor() { }
+  constructor(private primengConfig: PrimeNGConfig) { }
 
   ngOnInit(): void {
-
+    this.primengConfig.ripple = true;
   }
 
   showSideBar() {
