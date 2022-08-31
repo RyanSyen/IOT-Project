@@ -1,0 +1,229 @@
+@import "../../../styles.scss";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+* {
+  display: flex;
+}
+
+body {
+  color: $active-font-color;
+  background-color: $background-color;
+  display: flex;
+}
+
+.nav_sidebar {
+  display: flex;
+}
+
+.component-bkg {
+  background-color: $component-background-color;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.09);
+  }
+}
+
+.header-component {
+  margin: 0 15px 0 15px;
+  text-decoration: none;
+}
+
+.burgermenu {
+  margin-left: 10px
+}
+
+//* function --------------------------------------------
+@function weight($weight-name) {
+  @return map-get($font-weights, $weight-name);
+}
+
+.btn-transparent {
+  background-color: $transparent;
+  border: none;
+}
+
+//* google material icon theme --------------------------------------------
+.mat-light {
+  color: $mat-icon-light;
+  font-size: $mat-icon-24;
+  @extend .component-bkg;
+}
+
+.mat-dark {
+  color: $mat-icon-dark;
+  font-size: $mat-icon-24;
+  @extend .component-bkg;
+}
+
+.transparent-bkg {
+  background-color: transparent;
+}
+
+//* header --------------------------------------------
+.logo-name {
+  font-family: 'Orbitron', sans-serif;
+  color: $active-font-color;
+  font-weight: weight(bold);
+  text-decoration: none;
+  font-style: italic;
+  font-size: larger;
+  background-color: $component-background-color;
+}
+
+.navbar {
+  z-index: 2;
+  height: 70px;
+  width: 100%;
+  font-family: $font-family;
+  font-weight: 400;
+  background: $component-background-color;
+  //   left: 244px;
+  transition: left .25s ease;
+  -webkit-transition: left .25s ease;
+  -moz-transition: left .25s ease;
+  -ms-transition: left .25s ease;
+  @include flexCenter(row);
+  justify-content: space-between !important;
+  //   transition: ease-in-out 300ms transform;
+  transition: transform 0.2s;
+
+  #{&}-right {
+    @include flexCenter(row);
+  }
+
+
+}
+
+.navbar.nav-slide {
+
+  //   transform: translateX(350px);
+  transition: ease-in-out 600ms transform;
+}
+
+//* default side bar --------------------------------------------
+.default-sidebar {
+  height: 100%;
+  width: 80px;
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color: $component-background-color;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+
+//* full side bar --------------------------------------------
+
+.sidebar-open {
+  background-color: $component-background-color;
+  border: none;
+  color: $active-font-color;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.btnsidebar {
+  background-color: $component-background-color;
+  color: white;
+  border: 1px solid #555555;
+  border-radius: 10px;
+  height: 50px;
+}
+
+.btnsidebar:hover {
+  box-shadow: 2px 2px 5px gray;
+}
+
+.sidebar-slider {
+  z-index: 1;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: $component-background-color;
+  //   transform: translateX(-100%);
+  transform: translateX(-70%);
+  transition: ease-in-out 300ms transform;
+  width: 250px;
+  //   animation: fadeAway 3s;
+}
+
+@keyframes fadeAway {
+  100% {
+    opacity: 1;
+  }
+
+  0% {
+    opacity: 0;
+  }
+}
+
+.sidebar-slider.sidebar-slide-in {
+  //   @extend .test;
+  //   display: none;
+  transform: translateX(0%);
+  transition: ease-in-out 600ms transform;
+}
+
+
+.sidebar-close {
+  position: fixed;
+  top: 0;
+  right: 0;
+  color: black;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  margin: 7px;
+  border-radius: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  height: 100%;
+  margin-top: 66px;
+
+}
+
+.set-align {
+  text-align: center;
+}
+
+.set-sidebar-text {
+  padding: 11px;
+}
+
+.set-sidebar-text:hover {
+  background-image: linear-gradient(to right, rgb(150, 218, 250), black);
+  color: black;
+  border-left: 10px solid rgb(3, 172, 250);
+  cursor: pointer;
+}
+
+//* overlay panel --------------------------------------------
+.overlay-panel-wide {
+  width: 450px;
+  background-color: $component-background-color;
+}
+
+.overlay-panel-narrow {
+  width: 250px;
+  background-color: $component-background-color;
+}

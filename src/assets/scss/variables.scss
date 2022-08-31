@@ -1,0 +1,33 @@
+$background-color: #000000;
+
+$component-background-color: #191c24;
+
+$header-logo: "../logo/logo-64px.png";
+
+$transparent: transparent;
+
+//* ------------------------------------------------- fonts -------------------------------------------------
+$font-family: Rubik,
+sans-serif;
+
+$active-font-color: #ffffff;
+
+$inactive-font-color: #6c7293;
+
+$default-font-size: 15px;
+
+$font-weights: ( // key : value
+  "regular": 400,
+  "medium": 500,
+  "bold": 700,
+  "extrabold": 900);
+
+//* ------------------------------------------------------------------------------------------------------
+
+
+@mixin flexCenter($direction) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}

@@ -1,0 +1,139 @@
+<!-- <div class="nav_sidebar"> -->
+
+
+<nav class="navbar" [class.nav-slide]="sidebarShow">
+  <div class="header-component">
+    <a class="logo-name" href="index.html">myofficeapp</a>
+    <span class="material-icons mat-light burgermenu" (click)="showSideBar()">menu</span>
+  </div>
+  <div class="navbar-right">
+    <a class="component-bkg " (click)="notifications.toggle($event)">
+      <mat-icon aria-label="Example home icon" class="mat-light">notifications</mat-icon>
+    </a>
+    <a class="component-bkg header-component">
+      <div class="navbar-profile ">
+        <div [hidden]="!loggedIn" class="">
+          <img alt="" class="img-xs rounded-circle" src="../../../assets/d-user.png">
+          <p class="" translate="">Admin</p>
+        </div>
+        <span class="material-icons mat-light " (click)="account.toggle($event)" [hidden]="loggedIn">
+          person
+        </span>
+      </div>
+    </a>
+  </div>
+</nav>
+<!-- </div> -->
+
+
+<body>
+  <!-- full sidebar  -->
+  <div class="sidebar-slider" [class.sidebar-slide-in]="sidebarShow" id="sideBarFull">
+    <button class="sidebar-close" (click)="sidebarShow = !sidebarShow">x</button>
+    <div class="sidebar-content">
+      <h2 class="set-align"></h2>
+      <div class="set-sidebar-text">Dashbord</div>
+      <div class="set-sidebar-text">Home</div>
+      <div class="set-sidebar-text">Profile</div>
+      <div class="set-sidebar-text">Message</div>
+      <div class="set-sidebar-text">Help</div>
+      <div class="set-sidebar-text">Setting</div>
+      <div class="set-sidebar-text">Sign Out</div>
+    </div>
+  </div>
+  <!-- default sidebar  -->
+  <div class="default-sidebar">
+    <p>test</p>
+  </div>
+  <div class="main">
+    <button class="sidebar-open btnsidebar" (click)="sidebarShow = !sidebarShow">
+      Open Sidebar
+    </button>
+  </div>
+
+
+
+
+</body>
+
+
+<!-- primeng overlay panel for notifications -->
+<p-overlayPanel #notifications [showCloseIcon]="true" [styleClass]="overlayPanelWide">
+  <ng-template pTemplate>
+    <div>
+      <h6 class="" translate="">Notifications</h6>
+      <div class=""></div>
+      <a class="">
+        <div class="">
+          <div class="preview-icon bg-dark rounded-circle">
+            <i class="mdi mdi-calendar text-success"></i>
+          </div>
+        </div>
+        <div class="preview-item-content">
+          <p class="preview-subject mb-1" translate="">Event today</p>
+          <p class="text-muted ellipsis mb-0" translate="">Just a reminder that you have an event today</p>
+        </div>
+      </a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item preview-item">
+        <div class="preview-thumbnail">
+          <div class="preview-icon bg-dark rounded-circle">
+            <i class="mdi mdi-settings text-danger"></i>
+          </div>
+        </div>
+        <div class="preview-item-content">
+          <p class="preview-subject mb-1" translate="">Settings</p>
+          <p class="text-muted ellipsis mb-0" translate="">Update dashboard</p>
+        </div>
+      </a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item preview-item">
+        <div class="preview-thumbnail">
+          <div class="preview-icon bg-dark rounded-circle">
+            <i class="mdi mdi-link-variant text-warning"></i>
+          </div>
+        </div>
+        <div class="preview-item-content">
+          <p class="preview-subject mb-1" translate="">Launch Admin</p>
+          <p class="text-muted ellipsis mb-0" translate="">New admin wow!</p>
+        </div>
+      </a>
+      <div class="dropdown-divider"></div>
+      <p class="p-3 mb-0 text-center" translate="">See all notifications</p>
+    </div>
+  </ng-template>
+</p-overlayPanel>
+
+<!-- primeng overlay panel for acoount options -->
+<p-overlayPanel #account [showCloseIcon]="true" [style]="{width: '350px'}">
+  <ng-template pTemplate>
+    <div aria-labelledby="profileDropdown" class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+      ngbdropdownmenu="">
+      <h6 class="p-3 mb-0" translate="">Profile</h6>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item preview-item">
+        <div class="preview-thumbnail">
+          <div class="preview-icon bg-dark rounded-circle">
+            <i class="mdi mdi-settings text-success"></i>
+          </div>
+        </div>
+        <div class="preview-item-content">
+          <p class="preview-subject mb-1" translate="">Settings</p>
+        </div>
+      </a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item preview-item">
+        <div class="preview-thumbnail">
+          <div class="preview-icon bg-dark rounded-circle">
+            <i class="mdi mdi-logout text-danger"></i>
+          </div>
+        </div>
+        <div class="preview-item-content">
+          <p class="preview-subject mb-1" translate="">Log out</p>
+        </div>
+      </a>
+      <div class="dropdown-divider"></div>
+      <p class="p-3 mb-0 text-center" translate="">Advanced settings</p>
+    </div>
+  </ng-template>
+</p-overlayPanel>

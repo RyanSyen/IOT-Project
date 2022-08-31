@@ -1,4 +1,15 @@
 // /* You can add global styles to this file, and also import other style files */
+@import "./assets/scss/reset.scss";
+@import "./assets/scss/variables.scss";
+@import "./assets/scss/material-icons.scss";
+
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+//font-family: 'Orbitron', sans-serif;
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+
+
 
 // @import "../node_modules/bootstrap/scss/functions";
 // @import "../node_modules/bootstrap/scss/variables";
@@ -86,3 +97,13 @@
 
 // /* === Layout === */
 // @import "./assets/scss/layout";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

@@ -1,0 +1,15 @@
+//* material icons styling
+/* Rules for sizing the icon size */
+
+$mat-icon-18: 18px;
+$mat-icon-24: 24px;
+$mat-icon-36: 36px;
+$mat-icon-48: 48px;
+
+/* Rules for using icons as black on a light background. */
+$mat-icon-dark: rgba(0, 0, 0, 0.54);
+$mat-icon-dark-inactive: rgba(0, 0, 0, 0.26);
+
+/* Rules for using icons as white on a dark background. */
+$mat-icon-light: rgba(255, 255, 255, 1);
+$mat-icon-light-inactive: rgba(255, 255, 255, 0.3);
