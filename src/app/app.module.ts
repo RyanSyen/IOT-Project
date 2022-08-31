@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -7,6 +7,8 @@ import { HomeComponent } from './component/home/home.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { Chart } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
+
 
 // ! unsupported firebase initialization
 // import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
@@ -49,10 +51,12 @@ import { TestComponent } from './component/test/test.component';
     AngularFireStorageModule, // Only required for storage features
     AngularFireDatabaseModule, // Only required for realtime database features
     FormsModule,
+    NgChartsModule,
   ],
   providers: [
     ScreenTrackingService, UserTrackingService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

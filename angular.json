@@ -93,10 +93,17 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": [
-              "../node_modules/chart.js/dist/Chart.min.js"
+              "../node_modules/chart.js/dist/Chart.min.js",
+              "node_modules/chart.js/dist/Chart.min.js",
+              "../node_modules/chart.js/dist/Chart.bundle.min.js"
+
+            ],
+            "allowedCommonJsDependencies": [
+              "chart.js"
             ]
           }
         },
