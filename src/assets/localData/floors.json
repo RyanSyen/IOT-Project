@@ -1,0 +1,83 @@
+{
+  "data": [{
+      "name": "B2",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    },
+    {
+      "name": "B1",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    },
+    {
+      "name": "G",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    },
+    {
+      "name": "1",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    },
+    {
+      "name": "2",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    },
+    {
+      "name": "3",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    },
+    {
+      "name": "4",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    },
+    {
+      "name": "5",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    },
+    {
+      "name": "6",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    },
+    {
+      "name": "7",
+      "avgTemp": 0,
+      "avgHumidity": 0,
+      "numLightbulbs": 0,
+      "aircondStatus": "off",
+      "ventilationStatus": "off"
+    }
+  ]
+}

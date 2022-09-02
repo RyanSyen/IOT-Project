@@ -1,0 +1,27 @@
+<div class="section2">
+  <!-- temperature status on each floor 
+        first two floors are parking floors, no aircon but have ventilation  -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Floor</th>
+        <th scope="col">Temperature</th>
+        <th scope="col">Humidity</th>
+        <th scope="col">Aircond + Status</th>
+        <th scope="col">Ventilation + Status</th>
+        <th scope="col">Lightbulbs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let floor of floorDet; index as i">
+        <th scope="row">{{ floor.name }}</th>
+        <td>{{floor.avgTemp}}</td>
+        <td>{{floor.avgHumidity}}</td>
+        <td>{{floor.aircondStatus}}</td>
+        <td>{{floor.ventilationStatus}}</td>
+        <td>{{floor.numLightbulbs}}</td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

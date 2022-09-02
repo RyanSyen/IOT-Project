@@ -1,176 +1,3 @@
-<nav class="navbar" [class.nav-slide]="sidebarShow">
-  <div class="header-component">
-    <a class="logo-name" href="index.html">myofficeapp</a>
-    <!-- <span class="material-icons mat-light burgermenu" (click)="showSideBar()">menu</span> -->
-  </div>
-  <div class="navbar-right">
-    <a *ngIf="daytime; else nightime" class="dayNight"><img src="../../../assets/navbar/morning.png" alt="day"></a>
-    <ng-template #nightime>
-      <a class="dayNight"><img src="../../../assets/navbar/night.png" alt="day"></a>
-    </ng-template>
-    <a class="component-bkg " (click)="notifications.toggle($event)">
-      <mat-icon aria-label="Example home icon" class="mat-light">notifications</mat-icon>
-    </a>
-    <a class="component-bkg header-component">
-      <div class="navbar-profile ">
-        <div [hidden]="!loggedIn" class="">
-          <img alt="" class="img-xs rounded-circle" src="../../../assets/d-user.png">
-          <p class="" translate="">Admin</p>
-        </div>
-        <span class="material-icons mat-light " (click)="account.toggle($event)" [hidden]="loggedIn">
-          person
-        </span>
-      </div>
-    </a>
-  </div>
-</nav>
-
-
-
-<body>
-  <!-- full sidebar  -->
-  <div class="sidebar-slider" [class.sidebar-slide-in]="sidebarShow" id="sideBarFull">
-    <button class="sidebar-close" (click)="sidebarShow = !sidebarShow">x</button>
-    <div class="sidebar-content">
-      <h2 class="set-align"></h2>
-      <div class="set-sidebar-text">Dashbord</div>
-      <div class="set-sidebar-text">Home</div>
-      <div class="set-sidebar-text">Profile</div>
-      <div class="set-sidebar-text">Message</div>
-      <div class="set-sidebar-text">Help</div>
-      <div class="set-sidebar-text">Setting</div>
-      <div class="set-sidebar-text">Sign Out</div>
-    </div>
-  </div>
-  <!-- default sidebar  -->
-  <div class="default-sidebar">
-    <div class="vertical-navbar">
-      <!-- default user img  -->
-      <div class="staffImg">
-        <img src="../../../assets/d-user.png" alt="default-user">
-      </div>
-      <!-- dashboard  -->
-      <div class="icon-vertical v-nav-active" pTooltip="Report" tooltipPosition="right">
-        <div class="inner-icon-container">
-          <img src="../../../assets/navbar/dashboard.png" alt="dashboard">
-        </div>
-      </div>
-      <!-- ventilation  -->
-      <div class="icon-vertical" pTooltip="Ventilation" tooltipPosition="right">
-        <div class="inner-icon-container">
-          <img src="../../../assets/navbar/ventilation.png" alt="ventilation">
-        </div>
-      </div>
-      <!-- parking  -->
-      <div class="icon-vertical" pTooltip="Parking" tooltipPosition="right">
-        <div class="inner-icon-container">
-          <img src="../../../assets/navbar/parking.png" alt="parking">
-        </div>
-      </div>
-      <!-- lighting  -->
-      <div class="icon-vertical" pTooltip="Lighting Grid" tooltipPosition="right">
-        <div class="inner-icon-container">
-          <img src="../../../assets/navbar/lighting.png" alt="lighting">
-        </div>
-      </div>
-      <!-- attendance  -->
-      <div class="icon-vertical" pTooltip="Attendance" tooltipPosition="right">
-        <div class="inner-icon-container">
-          <img src="../../../assets/navbar/attendance.png" alt="attendance">
-        </div>
-      </div>
-      <!-- doorbell  -->
-      <div class="icon-vertical" pTooltip="Doorbell" tooltipPosition="right">
-        <div class="inner-icon-container">
-          <img src="../../../assets/navbar/doorbell.png" alt="doorbell">
-        </div>
-      </div>
-      <!-- report  -->
-      <div class="icon-vertical" pTooltip="Report" tooltipPosition="right">
-        <div class="inner-icon-container">
-          <img src="../../../assets/navbar/report.png" alt="report">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="main">
-    <!-- <button class="sidebar-open btnsidebar" (click)="sidebarShow = !sidebarShow">
-      Open Sidebar
-    </button> -->
-    <div class="upperPanel">
-      <!-- clock component  -->
-      <div id="clockdate">
-        <div class="clockdate-wrapper">
-          <div id="clock">
-            <p>{{hours}}:{{minutes}}:{{seconds}}</p>
-            <span>{{day}}</span>
-          </div>
-          <div id="date">
-            <p>{{date}}</p>
-          </div>
-        </div>
-      </div>
-      <!-- weather component  -->
-      <div class="weather">
-        <div class="weather-day" *ngIf="daytime; else nightime" [ngSwitch]="weatherCondition">
-          <!-- left: displaying images of weather status: hot, raining, cloudy  -->
-          <img *ngSwitchCase="'Clear'" src="../../../assets/weather/day/clear.png" alt="clear">
-          <img *ngSwitchCase="'Thunderstorm'" src="../../../assets/weather/day/thunderstorm.png" alt="thunderstorm">
-          <img *ngSwitchCase="'Drizzle'" src="../../../assets/weather/day/drizzle.png" alt="drizzle">
-          <img *ngSwitchCase="'Rain'" src="../../../assets/weather/day/rain.png" alt="rain">
-          <img *ngSwitchCase="'Clouds'" src="../../../assets/weather/day/clouds.png" alt="clouds">
-        </div>
-        <ng-template #nightime>
-          <div class="weather-night" [ngSwitch]="weatherCondition">
-            <img *ngSwitchCase="'Clear'" src="../../../assets/weather/night/" alt="clear">
-            <img *ngSwitchCase="'Thunderstorm'" src="../../../assets/weather/night/thunderstorm.png" alt="thunderstorm">
-            <img *ngSwitchCase="'Drizzle'" src="../../../assets/weather/night/drizzle.png" alt="drizzle">
-            <img *ngSwitchCase="'Rain'" src="../../../assets/weather/night/rain.png" alt="rain">
-            <img *ngSwitchCase="'Clouds'" src="../../../assets/weather/night/clouds.png" alt="clouds">
-          </div>
-        </ng-template>
-        <div class="weather-right">
-          <!-- right: display weather details like temp, humidity, wind  -->
-          <h2>{{location}}
-            <lord-icon class="refreshBtn" (click)="refresh()" src="https://cdn.lordicon.com/sihdhmit.json"
-              trigger="click" colors="primary:#e4e4e4" style="width:24px;height:24px">
-            </lord-icon>
-          </h2>
-          <div class="weather-desc">
-            <div class="weather-right-upper">
-              <div class="weather-data first">
-                <img src="../../../assets/weather/temp.png" alt="temperature">
-                <p>{{temp}}&#8451;</p>
-              </div>
-              <div class="weather-data">
-                <img src="../../../assets/weather/feels.png" alt="feels">
-                <p>{{feels}}&#8451;</p>
-              </div>
-            </div>
-            <div class="weather-right-lower">
-              <div class="weather-data first">
-                <img src="../../../assets/weather/humidity.png" alt="humidity">
-                <p>{{humidity}}%</p>
-              </div>
-              <div class="weather-data">
-                <img src="../../../assets/weather/wind.png" alt="wind">
-                <p>{{windSpeed}}km/h</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-  </div>
-
-
-
-
-</body>
-
-
 <!-- primeng overlay panel for notifications -->
 <p-overlayPanel #notifications [showCloseIcon]="true" [styleClass]="overlayPanelWide">
   <ng-template pTemplate>
@@ -251,3 +78,124 @@
     </div>
   </ng-template>
 </p-overlayPanel>
+
+
+<nav class="navbar" [class.nav-slide]="sidebarShow">
+  <div class="header-component">
+    <a class="logo-name" href="index.html">myofficeapp</a>
+    <!-- <span class="material-icons mat-light burgermenu" (click)="showSideBar()">menu</span> -->
+  </div>
+  <div class="navbar-right">
+    <a *ngIf="daytime; else nightime" class="dayNight"><img src="../../../assets/navbar/morning.png" alt="day"></a>
+    <ng-template #nightime>
+      <a class="dayNight"><img src="../../../assets/navbar/night.png" alt="day"></a>
+    </ng-template>
+    <a class="component-bkg " (click)="notifications.toggle($event)">
+      <mat-icon aria-label="Example home icon" class="mat-light">notifications</mat-icon>
+    </a>
+    <a class="component-bkg header-component">
+      <div class="navbar-profile ">
+        <div [hidden]="!loggedIn" class="">
+          <img alt="" class="img-xs rounded-circle" src="../../../assets/d-user.png">
+          <p class="" translate="">Admin</p>
+        </div>
+        <span class="material-icons mat-light " (click)="account.toggle($event)" [hidden]="loggedIn">
+          person
+        </span>
+      </div>
+    </a>
+  </div>
+</nav>
+
+
+
+<div class="section">
+  <!-- default sidebar  -->
+  <div class="default-sidebar">
+    <div class="vertical-navbar">
+      <!-- default user img  -->
+      <div class="staffImg">
+        <img src="../../../assets/d-user.png" alt="default-user">
+      </div>
+      <!-- dashboard  -->
+      <div class="icon-vertical v-nav-active" pTooltip="Dashboard" tooltipPosition="right"
+        (click)="updatePage('dashboard')" id="dashboard">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/dashboard.png" alt="dashboard">
+        </div>
+      </div>
+      <!-- ventilation  -->
+      <div class="icon-vertical" pTooltip="Ventilation" tooltipPosition="right" (click)="updatePage('ventilation')"
+        id="ventilation">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/ventilation.png" alt="ventilation">
+        </div>
+      </div>
+      <!-- parking  -->
+      <div class="icon-vertical" pTooltip="Parking" tooltipPosition="right" (click)="updatePage('parking')"
+        id="parking">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/parking.png" alt="parking">
+        </div>
+      </div>
+      <!-- lighting  -->
+      <div class="icon-vertical" pTooltip="Lighting Grid" tooltipPosition="right" (click)="updatePage('lighting')"
+        id="lighting">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/lighting.png" alt="lighting">
+        </div>
+      </div>
+      <!-- attendance  -->
+      <div class="icon-vertical" pTooltip="Attendance" tooltipPosition="right" (click)="updatePage('attendance')"
+        id="attendance">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/attendance.png" alt="attendance">
+        </div>
+      </div>
+      <!-- doorbell  -->
+      <div class="icon-vertical" pTooltip="Doorbell" tooltipPosition="right" (click)="updatePage('doorbell')"
+        id="doorbell">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/doorbell.png" alt="doorbell">
+        </div>
+      </div>
+      <!-- report  -->
+      <div class="icon-vertical" pTooltip="Report" tooltipPosition="right" (click)="updatePage('report')" id="report">
+        <div class="inner-icon-container">
+          <img src="../../../assets/navbar/report.png" alt="report">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [ngSwitch]="page" class="main">
+    <div *ngSwitchCase="'dashboard'">
+      <!-- <button class="sidebar-open btnsidebar" (click)="sidebarShow = !sidebarShow">
+      Open Sidebar
+    </button> -->
+      <app-dashboard></app-dashboard>
+    </div>
+    <div *ngSwitchCase="'ventilation'">
+      <app-temp-nvent></app-temp-nvent>
+    </div>
+    <div *ngSwitchCase="'parking'">
+      <app-parking></app-parking>
+    </div>
+    <div *ngSwitchCase="'lighting'">
+      <app-lighting></app-lighting>
+    </div>
+    <div *ngSwitchCase="'attendance'">
+      <app-attendance></app-attendance>
+    </div>
+    <div *ngSwitchCase="'doorbell'">
+      <app-doorbell></app-doorbell>
+    </div>
+    <div *ngSwitchCase="'report'">
+      <app-report></app-report>
+    </div>
+  </div>
+
+
+
+
+
+</div>

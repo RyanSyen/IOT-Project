@@ -1,0 +1,72 @@
+<section class="section1">
+  <div class="upperPanel">
+    <!-- clock component  -->
+    <div id="clockdate">
+      <div class="clockdate-wrapper">
+        <div id="clock">
+          <p>{{hours}}:{{minutes}}:{{seconds}}</p>
+          <span>{{day}}</span>
+        </div>
+        <div id="date">
+          <p>{{date}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- weather component  -->
+    <div class="weather">
+      <div class="weather-day" *ngIf="daytime; else nightime" [ngSwitch]="weatherCondition">
+        <!-- left: displaying images of weather status: hot, raining, cloudy  -->
+        <img *ngSwitchCase="'Clear'" src="../../../assets/weather/day/clear.png" alt="clear">
+        <img *ngSwitchCase="'Thunderstorm'" src="../../../assets/weather/day/thunderstorm.png" alt="thunderstorm">
+        <img *ngSwitchCase="'Drizzle'" src="../../../assets/weather/day/drizzle.png" alt="drizzle">
+        <img *ngSwitchCase="'Rain'" src="../../../assets/weather/day/rain.png" alt="rain">
+        <img *ngSwitchCase="'Clouds'" src="../../../assets/weather/day/clouds.png" alt="clouds">
+      </div>
+      <ng-template #nightime>
+        <div class="weather-night" [ngSwitch]="weatherCondition">
+          <img *ngSwitchCase="'Clear'" src="../../../assets/weather/night/" alt="clear">
+          <img *ngSwitchCase="'Thunderstorm'" src="../../../assets/weather/night/thunderstorm.png" alt="thunderstorm">
+          <img *ngSwitchCase="'Drizzle'" src="../../../assets/weather/night/drizzle.png" alt="drizzle">
+          <img *ngSwitchCase="'Rain'" src="../../../assets/weather/night/rain.png" alt="rain">
+          <img *ngSwitchCase="'Clouds'" src="../../../assets/weather/night/clouds.png" alt="clouds">
+        </div>
+      </ng-template>
+      <div class="weather-right">
+        <!-- right: display weather details like temp, humidity, wind  -->
+        <h2>{{location}}
+          <lord-icon class="refreshBtn" (click)="refresh()" src="https://cdn.lordicon.com/sihdhmit.json" trigger="click"
+            colors="primary:#e4e4e4" style="width:24px;height:24px">
+          </lord-icon>
+        </h2>
+        <div class="weather-desc">
+          <div class="weather-right-upper">
+            <div class="weather-data first">
+              <img src="../../../assets/weather/temp.png" alt="temperature">
+              <p>Temperature: {{temp}}&#8451;</p>
+            </div>
+            <div class="weather-data">
+              <img src="../../../assets/weather/feels.png" alt="feels">
+              <p>Feels like: {{feels}}&#8451;</p>
+            </div>
+          </div>
+          <div class="weather-right-lower">
+            <div class="weather-data first">
+              <img src="../../../assets/weather/humidity.png" alt="humidity">
+              <p>Humidity: {{humidity}}%</p>
+            </div>
+            <div class="weather-data">
+              <img src="../../../assets/weather/wind.png" alt="wind">
+              <p>Wind speed: {{windSpeed}}km/h</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel2">
+    <div>
+
+    </div>
+  </div>
+</section>

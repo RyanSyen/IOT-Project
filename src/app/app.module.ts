@@ -46,6 +46,13 @@ import { TooltipModule } from 'primeng/tooltip';
 import { RealTimeDBComponent } from './component/real-time-db/real-time-db.component';
 import { TestComponent } from './component/test/test.component';
 import { SidemenuComponent } from './component/sidemenu/sidemenu.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { TempNventComponent } from './component/temp-nvent/temp-nvent.component';
+import { ParkingComponent } from './component/parking/parking.component';
+import { LightingComponent } from './component/lighting/lighting.component';
+import { AttendanceComponent } from './component/attendance/attendance.component';
+import { DoorbellComponent } from './component/doorbell/doorbell.component';
+import { ReportComponent } from './component/report/report.component';
 
 
 @NgModule({
@@ -54,7 +61,14 @@ import { SidemenuComponent } from './component/sidemenu/sidemenu.component';
     HomeComponent,
     RealTimeDBComponent,
     TestComponent,
-    SidemenuComponent
+    SidemenuComponent,
+    DashboardComponent,
+    TempNventComponent,
+    ParkingComponent,
+    LightingComponent,
+    AttendanceComponent,
+    DoorbellComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

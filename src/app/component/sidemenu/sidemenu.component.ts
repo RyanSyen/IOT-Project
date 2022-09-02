@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -11,18 +11,7 @@ export class SidemenuComponent implements OnInit {
   sidebarShow: boolean = false;
   notificationModal: boolean = false;
   loggedIn: boolean = false;
-
-  //* weather
-  weatherAPI = "e38e793b0540890a262fbffc0d9c534a";
-  url = "https://api.openweathermap.org/data/2.5/weather?";
-  celciusMetric = "&units=metric";
-  fullURL = "";
-  weatherCondition = "clear";
-  location = "";
-  temp: any;
-  humidity: any;
-  windSpeed: any;
-  feels: any;
+  page = "dashboard";
 
   //*time
   hours = 0;
@@ -35,8 +24,8 @@ export class SidemenuComponent implements OnInit {
   overlayPanelWide = 'overlay-panel-wide';
   overlayPanelNarrow = 'overlay-panel-narrow'
 
-  lat: any;
-  lng: any;
+  screenWidth: any;
+  screenHeight: any;
 
 
   constructor(private primengConfig: PrimeNGConfig) {
@@ -44,10 +33,22 @@ export class SidemenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.screenWidth = window.innerWidth;
+    this.screenHeight = window.innerHeight;
+
     this.primengConfig.ripple = true;
     this.startTime();
+  }
 
-    this.getLocation();
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
+    this.screenHeight = window.innerHeight;
+    let el = document.getElementById('section');
+    if (el != undefined) {
+      el.style.width = this.screenWidth;
+    }
   }
 
   showSideBar() {
@@ -108,45 +109,22 @@ export class SidemenuComponent implements OnInit {
     return i;
   }
 
-  getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        if (position) {
-          console.log("Latitude: " + position.coords.latitude +
-            "Longitude: " + position.coords.longitude);
-          this.lat = position.coords.latitude;
-          this.lng = position.coords.longitude;
-          console.log(this.lat);
-          console.log(this.lat);
-          this.fullURL = this.url + "lat=" + this.lat + "&lon=" + this.lng + this.celciusMetric + "&appid=" + this.weatherAPI;
-          console.log(this.fullURL);
-          this.getWeatherData(this.fullURL);
-        }
-      },
-        (error) => console.log(error));
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
+  updatePage(newpage: string) {
 
-  async getWeatherData(url: any) {
-    try {
-      const res = await fetch(url, { method: "GET" });
-      const data = await res.json();
-      console.log(data);
-      this.weatherCondition = data.weather[0].main;
-      this.location = data.name + ", " + data.sys.country;
-      this.temp = data.main.temp;
-      this.humidity = data.main.humidity;
-      this.windSpeed = data.wind.speed;
-      this.feels = data.main.feels_like;
-    } catch {
-      console.error("error");
+    // update side nav active status
+    let currentPage = document.getElementById(this.page);
+    let newPage = document.getElementById(newpage);
+    // remove active status on current page
+    if (currentPage != undefined) {
+      currentPage.classList.remove('v-nav-active');
     }
-  }
+    // add active status on new page
+    if (newPage != undefined) {
+      newPage.classList.add('v-nav-active');
+    }
 
-  refresh() {
-    this.getLocation();
+    // update page
+    this.page = newpage;
   }
 
 }
