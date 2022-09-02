@@ -7,7 +7,7 @@ import { HomeComponent } from './component/home/home.component';
 import { environment } from '../environments/environment';
 import { NgChartsModule } from 'ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HttpClientModule } from '@angular/common/http';
 
 // ! unsupported firebase initialization
 // import { provideAnalytics, getAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
@@ -81,6 +81,7 @@ import { SidemenuComponent } from './component/sidemenu/sidemenu.component';
     OverlayPanelModule,
     ToastModule,
     TooltipModule,
+    HttpClientModule,
   ],
   providers: [
     ScreenTrackingService, UserTrackingService, MessageService

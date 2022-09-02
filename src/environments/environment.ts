@@ -28,7 +28,12 @@ export const environment = {
     authDomain: 'bait2123iot-202205-13.firebaseapp.com',
     messagingSenderId: '724529058161',
     measurementId: 'G-6W4LTQKB5X',
-  }
+  },
+  //* open weather api
+  weatherUrl: 'https://api.openweathermap.org/data/2.5/weather',
+  forecastUrl: 'https://api.openweathermap.org/data/2.5/forecast',
+  citiesUrl: 'https://api.openweathermap.org/data/2.5/find',
+  iconUrl: 'https://openweathermap.org/img/w',
 }
 
 /*
