@@ -86,11 +86,11 @@
     <!-- <span class="material-icons mat-light burgermenu" (click)="showSideBar()">menu</span> -->
   </div>
   <div class="navbar-right">
-    <a *ngIf="daytime; else nightime" class="dayNight"><img src="../../../assets/navbar/morning.png" alt="day"></a>
+    <!-- <a *ngIf="daytime; else nightime" class="dayNight"><img src="../../../assets/navbar/morning.png" alt="day"></a>
     <ng-template #nightime>
       <a class="dayNight"><img src="../../../assets/navbar/night.png" alt="day"></a>
-    </ng-template>
-    <a class="component-bkg " (click)="notifications.toggle($event)">
+    </ng-template> -->
+    <a class="component-bkg" pTooltip="Notifications" tooltipPosition="bottom" (click)="notifications.toggle($event)">
       <mat-icon aria-label="Example home icon" class="mat-light">notifications</mat-icon>
     </a>
     <a class="component-bkg header-component">
@@ -99,7 +99,8 @@
           <img alt="" class="img-xs rounded-circle" src="../../../assets/d-user.png">
           <p class="" translate="">Admin</p>
         </div>
-        <span class="material-icons mat-light " (click)="account.toggle($event)" [hidden]="loggedIn">
+        <span class="material-icons mat-light" pTooltip="Account" tooltipPosition="bottom"
+          (click)="account.toggle($event)" [hidden]="loggedIn">
           person
         </span>
       </div>

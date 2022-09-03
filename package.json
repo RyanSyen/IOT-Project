@@ -29,6 +29,7 @@
     "firebase": "^9.9.3",
     "flag-icon-css": "^4.1.7",
     "ng2-charts": "^4.0.0",
+    "primeicons": "^5.0.0",
     "primeng": "^14.0.2",
     "rxjs": "~7.5.0",
     "simple-line-icons": "^2.5.5",

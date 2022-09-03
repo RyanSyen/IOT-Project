@@ -65,8 +65,61 @@
   </div>
 
   <div class="panel2">
-    <div>
+    <div class="panel2-left component">
+      <div class="dropdown">
+        <p-dropdown styleClass="test" [panelStyle]="optionsPanel" header="Custom Header" [style]="style"
+          [options]="floorName" [(ngModel)]="selectedFloor" optionLabel="name" [filter]="true" filterBy="name"
+          [showClear]="true" placeholder="Select a floor" (onChange)="onChange($event)">
+          <ng-template pTemplate="selectedItem">
+            <div *ngIf="selectedFloor">
+              <div>{{selectedFloor.name}}</div>
+            </div>
+          </ng-template>
+          <ng-template let-floor pTemplate="item">
+            <div>
+              <div>{{floor.name}}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div [ngSwitch]="currentFloor">
+        <div *ngSwitchCase="'B2'" class="chart-container">
+          <canvas id="MyChart1">{{ chart }}</canvas>
+        </div>
+        <div *ngSwitchCase="'B1'" class="chart-container">
+          <canvas id="MyChart2">{{ chart }}</canvas>
+        </div>
+        <div *ngSwitchCase="'G'" class="chart-container">
+          <canvas id="MyChart3">{{ chart }}</canvas>
+        </div>
+        <div *ngSwitchCase="'L1'" class="chart-container">
+          <canvas id="MyChart4">{{ chart }}</canvas>
+        </div>
+        <div *ngSwitchCase="'L2'" class="chart-container">
+          <canvas id="MyChart5">{{ chart }}</canvas>
+        </div>
+        <div *ngSwitchCase="'L3'" class="chart-container">
+          <canvas id="MyChart6">{{ chart }}</canvas>
+        </div>
+        <div *ngSwitchCase="'L4'" class="chart-container">
+          <canvas id="MyChart7">{{ chart }}</canvas>
+        </div>
+        <div *ngSwitchCase="'L5'" class="chart-container">
+          <canvas id="MyChart8">{{ chart }}</canvas>
+        </div>
+        <div *ngSwitchCase="'L6'" class="chart-container">
+          <canvas id="MyChart9">{{ chart }}</canvas>
+        </div>
+        <div *ngSwitchCase="'L7'" class="chart-container">
+          <canvas id="MyChart10">{{ chart }}</canvas>
+        </div>
+      </div>
 
+    </div>
+    <div class="panel2-right component">
+      <div class="chart-container-doughnut">
+        <canvas id="MyDoughnutChart1">{{ doughnutChart1 }}</canvas>
+      </div>
     </div>
   </div>
 </section>

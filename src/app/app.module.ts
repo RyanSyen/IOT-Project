@@ -42,6 +42,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { RealTimeDBComponent } from './component/real-time-db/real-time-db.component';
 import { TestComponent } from './component/test/test.component';
@@ -96,6 +97,7 @@ import { ReportComponent } from './component/report/report.component';
     ToastModule,
     TooltipModule,
     HttpClientModule,
+    DropdownModule,
   ],
   providers: [
     ScreenTrackingService, UserTrackingService, MessageService

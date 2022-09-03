@@ -24,7 +24,6 @@ export class TempNventComponent implements OnInit {
   }
 
   updateData() {
-
     this.floorDet.forEach(element => {
       element.numLightbulbs = this.generateRandNumLightBulbs();
     });

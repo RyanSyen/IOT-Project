@@ -18,6 +18,14 @@
   justify-content: space-evenly;
 }
 
+//* global component style
+.component {
+  padding: 20px;
+  background-color: $component-background-color;
+  color: #6C7293;
+  border-radius: 5px;
+}
+
 //* clock component
 #clockdate {
   cursor: default;
@@ -145,4 +153,47 @@
     cursor: pointer;
     margin: 3px 0 0 5px;
   }
+}
+
+//* panel2
+.panel2 {
+  margin-top: 25px;
+  @include flexCenter(row);
+  justify-content: space-around !important;
+
+
+  #{&}-left {
+
+
+    @include flexCenter(column);
+    justify-content: space-around !important;
+  }
+}
+
+//* dropdown
+.dropdown {
+  margin-bottom: 20px;
+}
+
+//* chart
+.chart-container {
+  background-color: #12151E;
+  width: 450px;
+  padding: 15px 20px;
+  border-radius: 5px;
+
+  #{&}-doughnut {
+    background-color: #12151E;
+    width: 350px;
+    padding: 15px 20px;
+    border-radius: 5px;
+  }
+}
+
+:host ::ng-deep .test.p-dropdown {
+  .p-dropdown-header {
+    color: #12151E;
+    background-color: #12151E;
+  }
+
 }
