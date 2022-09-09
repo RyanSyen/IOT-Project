@@ -114,12 +114,13 @@
           <canvas id="MyChart10">{{ chart }}</canvas>
         </div>
       </div>
-
+      <div class="default-line-chart" id="testChartID"><canvas id="testChart">{{ chart }}</canvas></div>
     </div>
     <div class="panel2-right component">
       <div class="chart-container-doughnut">
         <canvas id="MyDoughnutChart1">{{ doughnutChart1 }}</canvas>
       </div>
     </div>
+    <button (click)="openChart()">open</button>
   </div>
 </section>
