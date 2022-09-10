@@ -307,550 +307,550 @@ export class DashboardComponent implements OnInit {
     //   }
 
     // });
-    console.log(this.timeLabel, this.tempValue, this.humidityValue, this.currentFloor);
-    // switch (this.currentFloor) {
-    //   case 'B2':
-    console.log("test");
-    //* first chart
-    let htmlRef1 = this.elementRef.nativeElement.querySelector(`#testChart`);
-    this.chart = new Chart(htmlRef1, {
-      type: 'line',
-      data: {
-        labels: this.timeLabel,
-        datasets: [
-          {
-            label: "Temperature",
-            data: this.tempValue,
-            backgroundColor: 'blue',
-            borderColor: 'blue'
+    // console.log(this.timeLabel, this.tempValue, this.humidityValue, this.currentFloor);
+    switch (this.currentFloor) {
+      case 'B2':
+        console.log("test");
+        //* first chart
+        let htmlRef1 = this.elementRef.nativeElement.querySelector(`#MyChart1`);
+        this.chart = new Chart(htmlRef1, {
+          type: 'line',
+          data: {
+            labels: this.timeLabel,
+            datasets: [
+              {
+                label: "Temperature",
+                data: this.tempValue,
+                backgroundColor: 'blue',
+                borderColor: 'blue'
+              },
+              {
+                label: "Humidity",
+                data: this.humidityValue,
+                backgroundColor: 'limegreen',
+                borderColor: 'limegreen'
+              }
+            ]
           },
-          {
-            label: "Humidity",
-            data: this.humidityValue,
-            backgroundColor: 'limegreen',
-            borderColor: 'limegreen'
-          }
-        ]
-      },
-      options: {
-        aspectRatio: 2.5,
-        plugins: {
-          decimation: {
-            enabled: true,
-          },
-          title: {
-            display: true,
-            text: 'Temp & Humidity',
-            padding: {
-              top: 10,
-              bottom: 10
+          options: {
+            aspectRatio: 2.5,
+            plugins: {
+              decimation: {
+                enabled: true,
+              },
+              title: {
+                display: true,
+                text: 'Temp & Humidity',
+                padding: {
+                  top: 10,
+                  bottom: 10
+                },
+                color: '#ddd',
+                font: {
+                  size: 18
+                }
+              },
             },
-            color: '#ddd',
-            font: {
-              size: 18
-            }
+          }
+
+
+        });
+        break;
+      case 'B1':
+        //* second chart
+        let htmlRef2 = this.elementRef.nativeElement.querySelector(`#MyChart2`);
+        this.chart2 = new Chart(htmlRef2, {
+          type: 'line',
+
+          data: {
+            labels: this.timeLabel,
+            datasets: [
+              {
+                label: "Temperature",
+                data: this.tempValue2,
+                backgroundColor: 'blue',
+                borderColor: 'blue'
+              },
+              {
+                label: "Humidity",
+                data: this.humidityValue2,
+                backgroundColor: 'limegreen',
+                borderColor: 'limegreen'
+              }
+            ]
           },
-        },
-      }
+          options: {
+            aspectRatio: 2.5,
+            plugins: {
+              decimation: {
+                enabled: true,
+              },
+              title: {
+                display: true,
+                text: 'Temp & Humidity',
+                padding: {
+                  top: 10,
+                  bottom: 10
+                },
+                color: '#ddd',
+                font: {
+                  size: 18
+                }
+              },
+            },
+          }
 
+        });
+        break;
+      // case 'G':
+      //   //* third chart
+      //   let htmlRef3 = this.elementRef.nativeElement.querySelector(`#MyChart3`);
+      //   this.chart3 = new Chart(htmlRef3, {
+      //     type: 'line',
 
-    });
-    // break;
-    // case 'B1':
-    //   //* second chart
-    //   let htmlRef2 = this.elementRef.nativeElement.querySelector(`#MyChart2`);
-    //   this.chart2 = new Chart(htmlRef2, {
-    //     type: 'line',
+      //     data: {
+      //       labels: this.timeLabel,
+      //       datasets: [
+      //         {
+      //           label: "Temperature",
+      //           data: this.tempValue3,
+      //           backgroundColor: 'blue',
+      //           borderColor: 'blue'
+      //         },
+      //         {
+      //           label: "Humidity",
+      //           data: this.humidityValue3,
+      //           backgroundColor: 'limegreen',
+      //           borderColor: 'limegreen'
+      //         }
+      //       ]
+      //     },
+      //     options: {
+      //       aspectRatio: 2.5,
+      //       plugins: {
+      //         decimation: {
+      //           enabled: true,
+      //         },
+      //         title: {
+      //           display: true,
+      //           text: 'Temp & Humidity',
+      //           padding: {
+      //             top: 10,
+      //             bottom: 10
+      //           },
+      //           color: '#ddd',
+      //           font: {
+      //             size: 18
+      //           }
+      //         },
+      //       },
+      //     }
 
-    //     data: {
-    //       labels: this.timeLabel,
-    //       datasets: [
-    //         {
-    //           label: "Temperature",
-    //           data: this.tempValue2,
-    //           backgroundColor: 'blue',
-    //           borderColor: 'blue'
-    //         },
-    //         {
-    //           label: "Humidity",
-    //           data: this.humidityValue2,
-    //           backgroundColor: 'limegreen',
-    //           borderColor: 'limegreen'
-    //         }
-    //       ]
-    //     },
-    //     options: {
-    //       aspectRatio: 2.5,
-    //       plugins: {
-    //         decimation: {
-    //           enabled: true,
-    //         },
-    //         title: {
-    //           display: true,
-    //           text: 'Temp & Humidity',
-    //           padding: {
-    //             top: 10,
-    //             bottom: 10
-    //           },
-    //           color: '#ddd',
-    //           font: {
-    //             size: 18
-    //           }
-    //         },
-    //       },
-    //     }
+      //   });
+      //   break;
+      // case 'L1':
+      //   //* fourth chart
+      //   let htmlRef4 = this.elementRef.nativeElement.querySelector(`#MyChart4`);
+      //   this.chart4 = new Chart(htmlRef4, {
+      //     type: 'line',
 
-    //   });
-    //   break;
-    // case 'G':
-    //   //* third chart
-    //   let htmlRef3 = this.elementRef.nativeElement.querySelector(`#MyChart3`);
-    //   this.chart3 = new Chart(htmlRef3, {
-    //     type: 'line',
+      //     data: {
+      //       labels: this.timeLabel,
+      //       datasets: [
+      //         {
+      //           label: "Temperature",
+      //           data: this.tempValue4,
+      //           backgroundColor: 'blue',
+      //           borderColor: 'blue'
+      //         },
+      //         {
+      //           label: "Humidity",
+      //           data: this.humidityValue4,
+      //           backgroundColor: 'limegreen',
+      //           borderColor: 'limegreen'
+      //         }
+      //       ]
+      //     },
+      //     options: {
+      //       aspectRatio: 2.5,
+      //       plugins: {
+      //         decimation: {
+      //           enabled: true,
+      //         },
+      //         title: {
+      //           display: true,
+      //           text: 'Temp & Humidity',
+      //           padding: {
+      //             top: 10,
+      //             bottom: 10
+      //           },
+      //           color: '#ddd',
+      //           font: {
+      //             size: 18
+      //           }
+      //         },
+      //       },
+      //     }
 
-    //     data: {
-    //       labels: this.timeLabel,
-    //       datasets: [
-    //         {
-    //           label: "Temperature",
-    //           data: this.tempValue3,
-    //           backgroundColor: 'blue',
-    //           borderColor: 'blue'
-    //         },
-    //         {
-    //           label: "Humidity",
-    //           data: this.humidityValue3,
-    //           backgroundColor: 'limegreen',
-    //           borderColor: 'limegreen'
-    //         }
-    //       ]
-    //     },
-    //     options: {
-    //       aspectRatio: 2.5,
-    //       plugins: {
-    //         decimation: {
-    //           enabled: true,
-    //         },
-    //         title: {
-    //           display: true,
-    //           text: 'Temp & Humidity',
-    //           padding: {
-    //             top: 10,
-    //             bottom: 10
-    //           },
-    //           color: '#ddd',
-    //           font: {
-    //             size: 18
-    //           }
-    //         },
-    //       },
-    //     }
+      //   });
+      //   break;
+      // case 'L2':
+      //   //* fifth chart
+      //   let htmlRef5 = this.elementRef.nativeElement.querySelector(`#MyChart5`);
+      //   this.chart5 = new Chart(htmlRef5, {
+      //     type: 'line',
 
-    //   });
-    //   break;
-    // case 'L1':
-    //   //* fourth chart
-    //   let htmlRef4 = this.elementRef.nativeElement.querySelector(`#MyChart4`);
-    //   this.chart4 = new Chart(htmlRef4, {
-    //     type: 'line',
+      //     data: {
+      //       labels: this.timeLabel,
+      //       datasets: [
+      //         {
+      //           label: "Temperature",
+      //           data: this.tempValue,
+      //           backgroundColor: 'blue',
+      //           borderColor: 'blue'
+      //         },
+      //         {
+      //           label: "Humidity",
+      //           data: this.humidityValue,
+      //           backgroundColor: 'limegreen',
+      //           borderColor: 'limegreen'
+      //         }
+      //       ]
+      //     },
+      //     options: {
+      //       aspectRatio: 2.5,
+      //       plugins: {
+      //         decimation: {
+      //           enabled: true,
+      //         },
+      //         title: {
+      //           display: true,
+      //           text: 'Temp & Humidity',
+      //           padding: {
+      //             top: 10,
+      //             bottom: 10
+      //           },
+      //           color: '#ddd',
+      //           font: {
+      //             size: 18
+      //           }
+      //         },
+      //       },
+      //     }
 
-    //     data: {
-    //       labels: this.timeLabel,
-    //       datasets: [
-    //         {
-    //           label: "Temperature",
-    //           data: this.tempValue4,
-    //           backgroundColor: 'blue',
-    //           borderColor: 'blue'
-    //         },
-    //         {
-    //           label: "Humidity",
-    //           data: this.humidityValue4,
-    //           backgroundColor: 'limegreen',
-    //           borderColor: 'limegreen'
-    //         }
-    //       ]
-    //     },
-    //     options: {
-    //       aspectRatio: 2.5,
-    //       plugins: {
-    //         decimation: {
-    //           enabled: true,
-    //         },
-    //         title: {
-    //           display: true,
-    //           text: 'Temp & Humidity',
-    //           padding: {
-    //             top: 10,
-    //             bottom: 10
-    //           },
-    //           color: '#ddd',
-    //           font: {
-    //             size: 18
-    //           }
-    //         },
-    //       },
-    //     }
+      //   });
+      //   break;
+      // case 'L3':
+      //   //* sixth chart
+      //   let htmlRef6 = this.elementRef.nativeElement.querySelector(`#MyChart6`);
+      //   this.chart6 = new Chart(htmlRef6, {
+      //     type: 'line',
 
-    //   });
-    //   break;
-    // case 'L2':
-    //   //* fifth chart
-    //   let htmlRef5 = this.elementRef.nativeElement.querySelector(`#MyChart5`);
-    //   this.chart5 = new Chart(htmlRef5, {
-    //     type: 'line',
+      //     data: {
+      //       labels: this.timeLabel,
+      //       datasets: [
+      //         {
+      //           label: "Temperature",
+      //           data: this.tempValue,
+      //           backgroundColor: 'blue',
+      //           borderColor: 'blue'
+      //         },
+      //         {
+      //           label: "Humidity",
+      //           data: this.humidityValue,
+      //           backgroundColor: 'limegreen',
+      //           borderColor: 'limegreen'
+      //         }
+      //       ]
+      //     },
+      //     options: {
+      //       aspectRatio: 2.5,
+      //       plugins: {
+      //         decimation: {
+      //           enabled: true,
+      //         },
+      //         title: {
+      //           display: true,
+      //           text: 'Temp & Humidity',
+      //           padding: {
+      //             top: 10,
+      //             bottom: 10
+      //           },
+      //           color: '#ddd',
+      //           font: {
+      //             size: 18
+      //           }
+      //         },
+      //       },
+      //     }
 
-    //     data: {
-    //       labels: this.timeLabel,
-    //       datasets: [
-    //         {
-    //           label: "Temperature",
-    //           data: this.tempValue,
-    //           backgroundColor: 'blue',
-    //           borderColor: 'blue'
-    //         },
-    //         {
-    //           label: "Humidity",
-    //           data: this.humidityValue,
-    //           backgroundColor: 'limegreen',
-    //           borderColor: 'limegreen'
-    //         }
-    //       ]
-    //     },
-    //     options: {
-    //       aspectRatio: 2.5,
-    //       plugins: {
-    //         decimation: {
-    //           enabled: true,
-    //         },
-    //         title: {
-    //           display: true,
-    //           text: 'Temp & Humidity',
-    //           padding: {
-    //             top: 10,
-    //             bottom: 10
-    //           },
-    //           color: '#ddd',
-    //           font: {
-    //             size: 18
-    //           }
-    //         },
-    //       },
-    //     }
+      //   });
+      //   break;
+      // case 'L4':
+      //   //* seventh chart
+      //   let htmlRef7 = this.elementRef.nativeElement.querySelector(`#MyChart7`);
+      //   this.chart7 = new Chart(htmlRef7, {
+      //     type: 'line',
+      //     data: {
+      //       labels: this.timeLabel,
+      //       datasets: [
+      //         {
+      //           label: "Temperature",
+      //           data: this.tempValue,
+      //           backgroundColor: 'blue',
+      //           borderColor: 'blue'
+      //         },
+      //         {
+      //           label: "Humidity",
+      //           data: this.humidityValue,
+      //           backgroundColor: 'limegreen',
+      //           borderColor: 'limegreen'
+      //         }
+      //       ]
+      //     },
+      //     options: {
+      //       aspectRatio: 2.5,
+      //       plugins: {
+      //         decimation: {
+      //           enabled: true,
+      //         },
+      //         title: {
+      //           display: true,
+      //           text: 'Temp & Humidity',
+      //           padding: {
+      //             top: 10,
+      //             bottom: 10
+      //           },
+      //           color: '#ddd',
+      //           font: {
+      //             size: 18
+      //           }
+      //         },
+      //       },
+      //     }
 
-    //   });
-    //   break;
-    // case 'L3':
-    //   //* sixth chart
-    //   let htmlRef6 = this.elementRef.nativeElement.querySelector(`#MyChart6`);
-    //   this.chart6 = new Chart(htmlRef6, {
-    //     type: 'line',
+      //   });
+      //   break;
+      // case 'L5':
+      //   //* eighth chart
+      //   let htmlRef8 = this.elementRef.nativeElement.querySelector(`#MyChart8`);
+      //   this.chart8 = new Chart(htmlRef8, {
+      //     type: 'line',
 
-    //     data: {
-    //       labels: this.timeLabel,
-    //       datasets: [
-    //         {
-    //           label: "Temperature",
-    //           data: this.tempValue,
-    //           backgroundColor: 'blue',
-    //           borderColor: 'blue'
-    //         },
-    //         {
-    //           label: "Humidity",
-    //           data: this.humidityValue,
-    //           backgroundColor: 'limegreen',
-    //           borderColor: 'limegreen'
-    //         }
-    //       ]
-    //     },
-    //     options: {
-    //       aspectRatio: 2.5,
-    //       plugins: {
-    //         decimation: {
-    //           enabled: true,
-    //         },
-    //         title: {
-    //           display: true,
-    //           text: 'Temp & Humidity',
-    //           padding: {
-    //             top: 10,
-    //             bottom: 10
-    //           },
-    //           color: '#ddd',
-    //           font: {
-    //             size: 18
-    //           }
-    //         },
-    //       },
-    //     }
+      //     data: {
+      //       labels: this.timeLabel,
+      //       datasets: [
+      //         {
+      //           label: "Temperature",
+      //           data: this.tempValue,
+      //           backgroundColor: 'blue',
+      //           borderColor: 'blue'
+      //         },
+      //         {
+      //           label: "Humidity",
+      //           data: this.humidityValue,
+      //           backgroundColor: 'limegreen',
+      //           borderColor: 'limegreen'
+      //         }
+      //       ]
+      //     },
+      //     options: {
+      //       aspectRatio: 2.5,
+      //       plugins: {
+      //         decimation: {
+      //           enabled: true,
+      //         },
+      //         title: {
+      //           display: true,
+      //           text: 'Temp & Humidity',
+      //           padding: {
+      //             top: 10,
+      //             bottom: 10
+      //           },
+      //           color: '#ddd',
+      //           font: {
+      //             size: 18
+      //           }
+      //         },
+      //       },
+      //     }
 
-    //   });
-    //   break;
-    // case 'L4':
-    //   //* seventh chart
-    //   let htmlRef7 = this.elementRef.nativeElement.querySelector(`#MyChart7`);
-    //   this.chart7 = new Chart(htmlRef7, {
-    //     type: 'line',
-    //     data: {
-    //       labels: this.timeLabel,
-    //       datasets: [
-    //         {
-    //           label: "Temperature",
-    //           data: this.tempValue,
-    //           backgroundColor: 'blue',
-    //           borderColor: 'blue'
-    //         },
-    //         {
-    //           label: "Humidity",
-    //           data: this.humidityValue,
-    //           backgroundColor: 'limegreen',
-    //           borderColor: 'limegreen'
-    //         }
-    //       ]
-    //     },
-    //     options: {
-    //       aspectRatio: 2.5,
-    //       plugins: {
-    //         decimation: {
-    //           enabled: true,
-    //         },
-    //         title: {
-    //           display: true,
-    //           text: 'Temp & Humidity',
-    //           padding: {
-    //             top: 10,
-    //             bottom: 10
-    //           },
-    //           color: '#ddd',
-    //           font: {
-    //             size: 18
-    //           }
-    //         },
-    //       },
-    //     }
+      //   });
+      //   break;
+      // case 'L6':
+      //   //* ninth chart
+      //   let htmlRef9 = this.elementRef.nativeElement.querySelector(`#MyChart9`);
+      //   this.chart9 = new Chart(htmlRef9, {
+      //     type: 'line',
 
-    //   });
-    //   break;
-    // case 'L5':
-    //   //* eighth chart
-    //   let htmlRef8 = this.elementRef.nativeElement.querySelector(`#MyChart8`);
-    //   this.chart8 = new Chart(htmlRef8, {
-    //     type: 'line',
+      //     data: {
+      //       labels: this.timeLabel,
+      //       datasets: [
+      //         {
+      //           label: "Temperature",
+      //           data: this.tempValue,
+      //           backgroundColor: 'blue',
+      //           borderColor: 'blue'
+      //         },
+      //         {
+      //           label: "Humidity",
+      //           data: this.humidityValue,
+      //           backgroundColor: 'limegreen',
+      //           borderColor: 'limegreen'
+      //         }
+      //       ]
+      //     },
+      //     options: {
+      //       aspectRatio: 2.5,
+      //       plugins: {
+      //         decimation: {
+      //           enabled: true,
+      //         },
+      //         title: {
+      //           display: true,
+      //           text: 'Temp & Humidity',
+      //           padding: {
+      //             top: 10,
+      //             bottom: 10
+      //           },
+      //           color: '#ddd',
+      //           font: {
+      //             size: 18
+      //           }
+      //         },
+      //       },
+      //     }
 
-    //     data: {
-    //       labels: this.timeLabel,
-    //       datasets: [
-    //         {
-    //           label: "Temperature",
-    //           data: this.tempValue,
-    //           backgroundColor: 'blue',
-    //           borderColor: 'blue'
-    //         },
-    //         {
-    //           label: "Humidity",
-    //           data: this.humidityValue,
-    //           backgroundColor: 'limegreen',
-    //           borderColor: 'limegreen'
-    //         }
-    //       ]
-    //     },
-    //     options: {
-    //       aspectRatio: 2.5,
-    //       plugins: {
-    //         decimation: {
-    //           enabled: true,
-    //         },
-    //         title: {
-    //           display: true,
-    //           text: 'Temp & Humidity',
-    //           padding: {
-    //             top: 10,
-    //             bottom: 10
-    //           },
-    //           color: '#ddd',
-    //           font: {
-    //             size: 18
-    //           }
-    //         },
-    //       },
-    //     }
+      //   });
+      //   break;
+      // case 'L7':
+      // //* tenth chart
+      // let htmlRef10 = this.elementRef.nativeElement.querySelector(`#MyChart10`);
+      // this.chart10 = new Chart(htmlRef10, {
+      //   type: 'line',
 
-    //   });
-    //   break;
-    // case 'L6':
-    //   //* ninth chart
-    //   let htmlRef9 = this.elementRef.nativeElement.querySelector(`#MyChart9`);
-    //   this.chart9 = new Chart(htmlRef9, {
-    //     type: 'line',
+      //   data: {
+      //     labels: this.timeLabel,
+      //     datasets: [
+      //       {
+      //         label: "Temperature",
+      //         data: this.tempValue,
+      //         backgroundColor: 'blue',
+      //         borderColor: 'blue'
+      //       },
+      //       {
+      //         label: "Humidity",
+      //         data: this.humidityValue,
+      //         backgroundColor: 'limegreen',
+      //         borderColor: 'limegreen'
+      //       }
+      //     ]
+      //   },
+      //   options: {
+      //     aspectRatio: 2.5,
+      //     plugins: {
+      //       decimation: {
+      //         enabled: true,
+      //       },
+      //       title: {
+      //         display: true,
+      //         text: 'Temp & Humidity',
+      //         padding: {
+      //           top: 10,
+      //           bottom: 10
+      //         },
+      //         color: '#ddd',
+      //         font: {
+      //           size: 18
+      //         }
+      //       },
+      //     },
+      //   }
 
-    //     data: {
-    //       labels: this.timeLabel,
-    //       datasets: [
-    //         {
-    //           label: "Temperature",
-    //           data: this.tempValue,
-    //           backgroundColor: 'blue',
-    //           borderColor: 'blue'
-    //         },
-    //         {
-    //           label: "Humidity",
-    //           data: this.humidityValue,
-    //           backgroundColor: 'limegreen',
-    //           borderColor: 'limegreen'
-    //         }
-    //       ]
-    //     },
-    //     options: {
-    //       aspectRatio: 2.5,
-    //       plugins: {
-    //         decimation: {
-    //           enabled: true,
-    //         },
-    //         title: {
-    //           display: true,
-    //           text: 'Temp & Humidity',
-    //           padding: {
-    //             top: 10,
-    //             bottom: 10
-    //           },
-    //           color: '#ddd',
-    //           font: {
-    //             size: 18
-    //           }
-    //         },
-    //       },
-    //     }
-
-    //   });
-    //   break;
-    // case 'L7':
-    // //* tenth chart
-    // let htmlRef10 = this.elementRef.nativeElement.querySelector(`#MyChart10`);
-    // this.chart10 = new Chart(htmlRef10, {
-    //   type: 'line',
-
-    //   data: {
-    //     labels: this.timeLabel,
-    //     datasets: [
-    //       {
-    //         label: "Temperature",
-    //         data: this.tempValue,
-    //         backgroundColor: 'blue',
-    //         borderColor: 'blue'
-    //       },
-    //       {
-    //         label: "Humidity",
-    //         data: this.humidityValue,
-    //         backgroundColor: 'limegreen',
-    //         borderColor: 'limegreen'
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     aspectRatio: 2.5,
-    //     plugins: {
-    //       decimation: {
-    //         enabled: true,
-    //       },
-    //       title: {
-    //         display: true,
-    //         text: 'Temp & Humidity',
-    //         padding: {
-    //           top: 10,
-    //           bottom: 10
-    //         },
-    //         color: '#ddd',
-    //         font: {
-    //           size: 18
-    //         }
-    //       },
-    //     },
-    //   }
-
-    // });
-    // break;
+      // });
+      // break;
 
 
 
-    // }
+    }
   }
 
   updateChart() {
-    // var floors = [
-    //   {
-    //     name: 'B1',
-    //     chartID: this.chart
-    //   },
-    //   {
-    //     name: 'B2',
-    //     chartID: this.chart2
-    //   },
-    //   {
-    //     name: 'G',
-    //     chartID: this.chart3
-    //   },
-    //   {
-    //     name: 'L1',
-    //     chartID: this.chart4
-    //   },
-    //   {
-    //     name: 'L2',
-    //     chartID: this.chart5
-    //   },
-    //   {
-    //     name: 'L3',
-    //     chartID: this.chart6
-    //   },
-    //   {
-    //     name: 'L4',
-    //     chartID: this.chart7
-    //   },
-    //   {
-    //     name: 'L5',
-    //     chartID: this.chart8
-    //   },
-    //   {
-    //     name: 'L6',
-    //     chartID: this.chart9
-    //   },
-    //   {
-    //     name: 'L7',
-    //     chartID: this.chart10
-    //   }
-    // ];
-    var chartid: any;
+    var floors = [
+      {
+        name: 'B1',
+        chartID: 'this.chart'
+      },
+      {
+        name: 'B2',
+        chartID: 'this.chart2'
+      },
+      {
+        name: 'G',
+        chartID: 'this.chart3'
+      },
+      {
+        name: 'L1',
+        chartID: 'this.chart4'
+      },
+      {
+        name: 'L2',
+        chartID: 'this.chart5'
+      },
+      {
+        name: 'L3',
+        chartID: 'this.chart6'
+      },
+      {
+        name: 'L4',
+        chartID: 'this.chart7'
+      },
+      {
+        name: 'L5',
+        chartID: 'this.chart8'
+      },
+      {
+        name: 'L6',
+        chartID: 'this.chart9'
+      },
+      {
+        name: 'L7',
+        chartID: 'this.chart10'
+      }
+    ];
 
-    console.log(this.timeLabel.length);
 
-    if (this.timeLabel.length > 4) {
-      // floors.forEach(element => {
-      //   if (this.currentFloor == element.name) {
-      //     chartid = element.chartID;
-      //     console.log(chartid)
-      //     chartid.data.datasets[0].data.shift();
-      //     chartid.data.datasets[1].data.shift();
-      //     // chartid.data.labels.shift();
-      //     this.timeLabel.shift();
-      //   } else {
-      //     console.log("error")
-      //   }
-      // });
+    if (this.currentFloor == 'B2') {
+      if (this.timeLabel.length > 4) {
+        this.timeLabel.shift();
+        this.chart.data.datasets[0].data.shift();
+        this.chart.data.datasets[1].data.shift();
 
-      this.timeLabel.shift();
-      this.chart.data.datasets[0].data.shift();
-      this.chart.data.datasets[1].data.shift();
-      // this.chart.data.datasets[0].data.shift();
-      // this.chart.data.datasets[1].data.shift();
-      // this.chart.data.labels.shift();
-      // chartid.update();
+        // this.timeLabel.shift();
+        // this.chart.data.datasets[0].data.shift();
+        // this.chart.data.datasets[1].data.shift();
+      }
+
+      this.chart.data.labels.push(this.timeSnaphot);
+      this.chart.data.datasets[0].data.push(this.generateRandTemp());
+      this.chart.data.datasets[1].data.push(this.generateRandHumidity());
+      this.chart.update();
+    } else if (this.currentFloor == 'B1') {
+
+      if (this.timeLabel.length > 4) {
+        this.timeLabel.shift();
+        this.chart2.data.datasets[0].data.shift();
+        this.chart2.data.datasets[1].data.shift();
+
+      }
+
+      this.chart2.data.labels.push(this.timeSnaphot);
+      this.chart2.data.datasets[0].data.push(this.generateRandTemp());
+      this.chart2.data.datasets[1].data.push(this.generateRandHumidity());
+      this.chart2.update();
     }
 
-    this.chart.data.labels.push(this.timeSnaphot);
-    console.log(this.chart.data.labels)
-    this.chart.data.datasets[0].data.push(this.generateRandTemp());
-    console.log(this.chart.data.datasets[0].data)
-    this.chart.data.datasets[1].data.push(this.generateRandHumidity());
-    this.chart.update();
+
 
 
 
@@ -871,13 +871,23 @@ export class DashboardComponent implements OnInit {
     console.log(event.value.name)
     if (event != null) {
       this.currentFloor = event.value.name;
+      let el = document.getElementById('chartID');
+      if (el) {
+        this.timeLabel = [];
+        if (this.currentFloor == 'B2') {
+          el.innerHTML = '<canvas id="MyChart1">{{ chart }}</canvas>';
+        } else if (this.currentFloor == 'B1') {
+
+          el.innerHTML = '<canvas id="MyChart2">{{ chart }}</canvas>';
+        }
+      }
       this.createChart();
     }
 
   }
 
   openChart() {
-    let el = document.getElementById("testChartID");
+    let el = document.getElementById("MyChart2ID");
     if (el) {
       console.log(el)
       if (el.classList.contains('default-line-chart')) {

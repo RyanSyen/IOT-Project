@@ -36,6 +36,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 //* primeng ui component
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -93,6 +94,7 @@ import { ReportComponent } from './component/report/report.component';
     MatSliderModule,
     MatSlideToggleModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     OverlayPanelModule,
     ToastModule,
     TooltipModule,
