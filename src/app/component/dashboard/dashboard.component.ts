@@ -860,7 +860,7 @@ export class DashboardComponent implements OnInit {
   }
 
   generateRandTemp() {
-    return Math.floor(Math.random() * (35 - 25 + 1) + 25);
+    return Math.floor(Math.random() * (30 - 18 + 1) + 18);
   }
 
   generateRandHumidity() {

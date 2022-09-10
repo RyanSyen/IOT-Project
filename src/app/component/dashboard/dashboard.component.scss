@@ -10,12 +10,15 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 1050px;
   height: 100%;
+  margin: auto;
 }
 
 .upperPanel {
   display: flex;
-  justify-content: space-evenly;
+  align-items: stretch;
+
 }
 
 //* global component style
@@ -39,8 +42,10 @@
   width: 100%;
   text-align: center;
   border-radius: 5px;
-  margin: 0 auto;
+  // margin: 0 auto;
   @include flexCenter(column);
+  margin: 0 20px;
+  flex-grow: 1;
 
   p,
   span {
@@ -82,6 +87,10 @@
   font-size: 14px;
   font-family: arial, sans-serif;
   color: #fff;
+
+  p {
+    margin: 15px 0 0 0;
+  }
 }
 
 //* weather component
@@ -91,6 +100,10 @@
   text-align: center;
   border-radius: 5px;
   display: flex;
+  // margin-left: clamp(20px, 5%, 50px);
+  margin: 0 20px;
+  flex-grow: 1;
+  justify-content: center;
 
   #{&}-day,
   #{&}-night {
@@ -158,15 +171,23 @@
 //* panel2
 .panel2 {
   margin-top: 25px;
-  @include flexCenter(row);
-  justify-content: space-around !important;
+  display: flex;
+  align-items: stretch;
+  // @include flexCenter(row);
+  // justify-content: space-around !important;
 
 
   #{&}-left {
-
-
+    height: 340px;
+    margin: 0 20px;
+    flex-grow: 1;
     @include flexCenter(column);
     justify-content: space-around !important;
+  }
+
+  #{&}-right {
+    margin: 0 20px;
+    // margin-left: clamp(20px, 5%, 50px);
   }
 }
 
@@ -206,4 +227,28 @@
 .default-line-chart {
   // display: none;
   visibility: hidden;
+}
+
+.panel3 {
+  margin-top: 25px;
+  // @include flexCenter(row);
+
+  display: flex;
+  align-items: stretch;
+  // width: 100%;
+
+  // #{&}-container {
+  //   display: flex;
+  //   align-items: stretch;
+
+  //   div {
+  //     margin: 0 20px;
+  //   }
+
+  // }
+
+  div {
+    margin: 0 20px;
+    flex-grow: 1;
+  }
 }

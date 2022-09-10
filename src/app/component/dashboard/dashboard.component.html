@@ -69,7 +69,7 @@
       <div class="dropdown">
         <p-dropdown styleClass="test" [panelStyle]="optionsPanel" header="Custom Header" [style]="style"
           [options]="floorName" [(ngModel)]="selectedFloor" optionLabel="name" [filter]="true" filterBy="name"
-          placeholder="Select a floor" (onChange)="onChange($event)">
+          placeholder="B2" (onChange)="onChange($event)">
           <ng-template pTemplate="selectedItem">
             <div *ngIf="selectedFloor">
               <div>{{selectedFloor.name}}</div>
@@ -94,12 +94,27 @@
   </div>
 
   <div class="panel3">
-    <div class="panel3leftcomponent">
-
+    <!-- <div class="panel3-container"> -->
+    <!-- temperature status (cool/hot) -->
+    <div class="component">
+      1
     </div>
-    <div class="panel3rightcomponent">
-
+    <!-- humidity status (normal/very humid) -->
+    <div class="component">
+      2
     </div>
+    <!-- parking lot status (x/y) -->
+    <div class="component">
+      3
+    </div>
+    <!-- lamppost status (active/inactive) -->
+    <div class="component">
+      4
+    </div>
+    <!-- doorbell status (active/inactive) -->
+    <div class="component">
+      5
+    </div>
+    <!-- </div> -->
   </div>
-
 </section>
