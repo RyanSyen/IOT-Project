@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 // * Firebase
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { ScreenTrackingService, UserTrackingService } from '@angular/fire/compat/analytics';
@@ -76,7 +76,8 @@ import { ReportComponent } from './component/report/report.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase1), AngularFirestoreModule, // Only required for cloud database features
+    AngularFireModule.initializeApp(environment.firebase1),
+    AngularFirestoreModule, // Only required for cloud database features
     AngularFireAuthModule, // Only required for auth features
     AngularFireStorageModule, // Only required for storage features
     AngularFireDatabaseModule, // Only required for realtime database features
@@ -102,7 +103,7 @@ import { ReportComponent } from './component/report/report.component';
     DropdownModule,
   ],
   providers: [
-    ScreenTrackingService, UserTrackingService, MessageService
+    ScreenTrackingService, UserTrackingService, MessageService, AngularFirestoreModule
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -4,8 +4,9 @@ import Chart from 'chart.js/auto';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Emp } from 'src/app/interfaces/emp';
+import { FirebaseService } from 'src/app/firebase.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -114,20 +115,16 @@ export class DashboardComponent implements OnInit {
   doorbellSensorStatus = "inactive";
   parkingOccupied: any;
 
-  // itemsRef: AngularFireList<any>;
-  // items: Observable<any[]>;
-
-  otherValues =
-    {
-      pSpace: {
-        value: 149
-      }
-    }
+  private empCollection: AngularFirestoreCollection<Emp>;
+  emps: Observable<Emp[]>;
 
 
 
 
-  constructor(private localService: LocalService, private elementRef: ElementRef, private db: AngularFireDatabase) {
+  constructor(private localService: LocalService, private elementRef: ElementRef, private db: AngularFireDatabase, private readonly afs: AngularFirestore, private firebaseService: FirebaseService) {
+
+    this.empCollection = this.afs.collection<Emp>('emps');
+    this.emps = this.empCollection.valueChanges({ idField: 'customID' });
 
     //* populate the floor names for drop down selection
     this.floorName = [
@@ -147,6 +144,12 @@ export class DashboardComponent implements OnInit {
     const ref1 = this.db.list("OTHER_CONTROL");
     // ref.set('pSpace', 149);
     ref1.set('doorbell', 0);
+
+    //! get realtime data using snapshotchanges() -> not working properly
+    // get realtime data using valueChanges()
+    this.get_emp_records_using_valueChanges();
+
+
   }
 
   ngOnInit(): void {
@@ -158,173 +161,16 @@ export class DashboardComponent implements OnInit {
     this.updateChart();
     this.createDoughnutChart1();
 
-    //* get current component status in realtime
-    const ref = this.db.list("CR13_CURRENT");
-    // 1st method (better as it returns the actual object key)
-    ref.snapshotChanges(['child_changed'])
-      .subscribe(actions => {
-        actions.forEach(action => {
-          // console.log(action.type); 
-          // console.log(action.key); 
-          // console.log(action.payload.val());
-          var key = action.key?.toString();
-          if (key) {
-            if (key == 'humid') {
+    // get current component status in realtime
+    this.get_current_component_status();
 
-              this.humidSensor = action.payload.val();
-              this.humidSensor = this.humidSensor * 10;
-              if (parseInt(this.humidSensor) > 93) {
-                let el = document.getElementById('status2');
-                el?.classList.add('inactive');
+    // get other component status in realtime
+    this.get_other_component_status();
 
-                let el1 = document.getElementById('humidityImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/very-humid.png";
-              } else {
-                let el = document.getElementById('status2');
-                el?.classList.remove('inactive');
-                let el1 = document.getElementById('humidityImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/normal-humid.png";
-              }
-            } else if (key == 'sound') {
-              this.soundSensor = action.payload.val();
-            } else if (key == 'light') {
-              this.lightSensor = action.payload.val();
+    // get other component control in realtime
+    this.get_other_component_control();
 
-              // using light sensor values
-              // if (parseInt(this.lightSensor) == 1) {
-              //   let el = document.getElementById('status4');
-              //   el?.classList.remove('inactive');
-              //   this.lightSensorStatus = "active";
-              //   let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
-              //   el1.src = "../../../assets/dashboard/empty.png";
-              // } else {
-              //   let el = document.getElementById('status4');
-              //   el?.classList.add('inactive');
-              //   this.lightSensorStatus = "inactive";
-              //   let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
-              //   el1.src = "../../../assets/dashboard/light.png";
-              // }
-
-            } else if (key == 'poten') {
-              this.soundSensor = action.payload.val();
-            } else if (key == 'rand1') {
-              this.rand1Sensor = action.payload.val();
-            } else if (key == 'rand2') {
-              this.rand2Sensor = action.payload.val();
-            } else if (key == 'tempe') {
-              this.tempSensor = action.payload.val();
-              if (parseInt(this.tempSensor) > 38) {
-                let el = document.getElementById('status1');
-                el?.classList.add('inactive');
-
-                let el1 = document.getElementById('tempImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/hot.png";
-              } else {
-                let el = document.getElementById('status1');
-                el?.classList.remove('inactive');
-
-                let el1 = document.getElementById('tempImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/cool.png";
-              }
-            }
-          }
-        });
-      });
-    // 2nd method (does not return the actual key name)
-    // ref.valueChanges().subscribe((data) => {
-    //   console.log(data)
-    //   this.sound = data;
-    // })
-    //* get other component status in realtime
-    const ref1 = this.db.list("OTHER_VALUES");
-    ref1.snapshotChanges(['child_changed'])
-      .subscribe(actions => {
-        actions.forEach(action => {
-          // console.log(action.type); 
-          // console.log(action.key); 
-          // console.log(action.payload.val());
-          var key = action.key?.toString();
-          if (key) {
-            if (key == 'pSpace') {
-              this.parkingOccupied = action.payload.val();
-
-              if (this.parkingOccupied > 149) {
-                let el = document.getElementById('status3');
-                el?.classList.add('inactive');
-
-                let el1 = document.getElementById('parkingImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/full.png";
-              } else {
-                let el = document.getElementById('status3');
-                el?.classList.remove('inactive');
-
-                let el1 = document.getElementById('parkingImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/park.png";
-              }
-            }
-          }
-        });
-      });
-
-    //* get other component status in realtime
-    const ref2 = this.db.list("OTHER_CONTROL");
-    ref2.snapshotChanges(['child_changed'])
-      .subscribe(actions => {
-        actions.forEach(action => {
-          // console.log(action.type); 
-          // console.log(action.key); 
-          // console.log(action.payload.val());
-          var key = action.key?.toString();
-          if (key) {
-            if (key == 'doorbell') {
-              this.doorbellSensor = action.payload.val();
-              if (parseInt(this.doorbellSensor) == 1) {
-                let el = document.getElementById('status5');
-                el?.classList.add('inactive');
-
-                let el1 = document.getElementById('doorbellImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/alert-edited.gif";
-
-                // play audio
-                var audio = document.createElement("audio");
-
-                audio.src = "../../../assets/dashboard/doorbell.mp3";
-                audio.muted = true;
-                // console.log(audio.src)
-
-                const interval = setInterval(function () {
-                  audio.muted = false;
-                  audio.play()
-                }, 2500);
-
-                audio.addEventListener("canplaythrough", function () {
-                  setTimeout(function () {
-                    clearInterval(interval);
-                    audio.pause();
-                  }, 10000);
-                }, false);
-
-
-
-                setTimeout(() => {
-                  // reset doorbell
-                  this.resetDoorbell();
-                  el?.classList.remove('inactive');
-                  el1.src = "../../../assets/dashboard/inactive-bell.png";
-                }, 10500);
-
-
-              } else {
-                let el = document.getElementById('status5');
-                el?.classList.remove('inactive');
-
-                let el1 = document.getElementById('doorbellImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/inactive-bell.png";
-              }
-            }
-          }
-        });
-      });
+    this.firebaseService.setAttendance(this.formattedDate());
   }
 
   startTime() {
@@ -1245,4 +1091,211 @@ export class DashboardComponent implements OnInit {
     ref.set('doorbell', 0);
   }
 
+  get_current_component_status() {
+
+    const ref = this.db.list("CR13_CURRENT");
+    // 1st method (better as it returns the actual object key)
+    ref.snapshotChanges(['child_changed'])
+      .subscribe(actions => {
+        actions.forEach(action => {
+          // console.log(action.type); 
+          // console.log(action.key); 
+          // console.log(action.payload.val());
+          var key = action.key?.toString();
+          if (key) {
+            if (key == 'humid') {
+
+              this.humidSensor = action.payload.val();
+              this.humidSensor = this.humidSensor * 10;
+              if (parseInt(this.humidSensor) > 93) {
+                let el = document.getElementById('status2');
+                el?.classList.add('inactive');
+
+                let el1 = document.getElementById('humidityImg') as HTMLImageElement;
+                el1.src = "../../../assets/dashboard/very-humid.png";
+              } else {
+                let el = document.getElementById('status2');
+                el?.classList.remove('inactive');
+                let el1 = document.getElementById('humidityImg') as HTMLImageElement;
+                el1.src = "../../../assets/dashboard/normal-humid.png";
+              }
+            } else if (key == 'sound') {
+              this.soundSensor = action.payload.val();
+            } else if (key == 'light') {
+              this.lightSensor = action.payload.val();
+
+              // using light sensor values
+              // if (parseInt(this.lightSensor) == 1) {
+              //   let el = document.getElementById('status4');
+              //   el?.classList.remove('inactive');
+              //   this.lightSensorStatus = "active";
+              //   let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
+              //   el1.src = "../../../assets/dashboard/empty.png";
+              // } else {
+              //   let el = document.getElementById('status4');
+              //   el?.classList.add('inactive');
+              //   this.lightSensorStatus = "inactive";
+              //   let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
+              //   el1.src = "../../../assets/dashboard/light.png";
+              // }
+
+            } else if (key == 'poten') {
+              this.soundSensor = action.payload.val();
+            } else if (key == 'rand1') {
+              this.rand1Sensor = action.payload.val();
+            } else if (key == 'rand2') {
+              this.rand2Sensor = action.payload.val();
+            } else if (key == 'tempe') {
+              this.tempSensor = action.payload.val();
+              if (parseInt(this.tempSensor) > 38) {
+                let el = document.getElementById('status1');
+                el?.classList.add('inactive');
+
+                let el1 = document.getElementById('tempImg') as HTMLImageElement;
+                el1.src = "../../../assets/dashboard/hot.png";
+              } else {
+                let el = document.getElementById('status1');
+                el?.classList.remove('inactive');
+
+                let el1 = document.getElementById('tempImg') as HTMLImageElement;
+                el1.src = "../../../assets/dashboard/cool.png";
+              }
+            }
+          }
+        });
+      });
+    // 2nd method (does not return the actual key name)
+    // ref.valueChanges().subscribe((data) => {
+    //   console.log(data)
+    //   this.sound = data;
+    // })
+  }
+  get_other_component_status() {
+    // get parking space value
+
+    const ref1 = this.db.list("OTHER_VALUES");
+    ref1.snapshotChanges(['child_changed'])
+      .subscribe(actions => {
+        actions.forEach(action => {
+          // console.log(action.type); 
+          // console.log(action.key); 
+          // console.log(action.payload.val());
+          var key = action.key?.toString();
+          if (key) {
+            if (key == 'pSpace') {
+              this.parkingOccupied = action.payload.val();
+
+              if (this.parkingOccupied > 149) {
+                let el = document.getElementById('status3');
+                el?.classList.add('inactive');
+
+                let el1 = document.getElementById('parkingImg') as HTMLImageElement;
+                el1.src = "../../../assets/dashboard/full.png";
+              } else {
+                let el = document.getElementById('status3');
+                el?.classList.remove('inactive');
+
+                let el1 = document.getElementById('parkingImg') as HTMLImageElement;
+                el1.src = "../../../assets/dashboard/park.png";
+              }
+            }
+          }
+        });
+      });
+  }
+  get_other_component_control() {
+    // control doorbell value
+    const ref2 = this.db.list("OTHER_CONTROL");
+    ref2.snapshotChanges(['child_changed'])
+      .subscribe(actions => {
+        actions.forEach(action => {
+          // console.log(action.type); 
+          // console.log(action.key); 
+          // console.log(action.payload.val());
+          var key = action.key?.toString();
+          if (key) {
+            if (key == 'doorbell') {
+              this.doorbellSensor = action.payload.val();
+              if (parseInt(this.doorbellSensor) == 1) {
+                let el = document.getElementById('status5');
+                el?.classList.add('inactive');
+
+                let el1 = document.getElementById('doorbellImg') as HTMLImageElement;
+                el1.src = "../../../assets/dashboard/alert-edited.gif";
+
+                // play audio
+                var audio = document.createElement("audio");
+
+                audio.src = "../../../assets/dashboard/doorbell.mp3";
+                audio.muted = true;
+                // console.log(audio.src)
+
+                const interval = setInterval(function () {
+                  audio.muted = false;
+                  audio.play()
+                }, 2500);
+
+                audio.addEventListener("canplaythrough", function () {
+                  setTimeout(function () {
+                    clearInterval(interval);
+                    audio.pause();
+                  }, 10000);
+                }, false);
+
+
+
+                setTimeout(() => {
+                  // reset doorbell
+                  this.resetDoorbell();
+                  el?.classList.remove('inactive');
+                  el1.src = "../../../assets/dashboard/inactive-bell.png";
+                }, 10500);
+
+
+              } else {
+                let el = document.getElementById('status5');
+                el?.classList.remove('inactive');
+
+                let el1 = document.getElementById('doorbellImg') as HTMLImageElement;
+                el1.src = "../../../assets/dashboard/inactive-bell.png";
+              }
+            }
+          }
+        });
+      });
+  }
+  get_emp_records_using_snapshotchanges() { // not working properly, need to research more on this
+    // https://github.com/angular/angularfire/blob/master/docs/firestore/collections.md#snapshotchanges
+    this.emps = this.empCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Emp;
+        const id = a.payload.doc.id;
+        // return { id, ...data };
+        console.log(id + " " + data);
+        return { ...data };
+      }))
+    );
+  }
+  get_emp_records_using_valueChanges() {
+
+    this.emps.subscribe(res => {
+      // console.log(res);
+    })
+  }
+
+  formattedDate() {
+    let today = new Date();
+    let dd = today.getDate().toString();
+    let mm = [today.getMonth() + 1].toString();
+    let yyyy = today.getFullYear();
+    if (parseInt(dd) < 10) {
+      dd = '0' + dd;
+    }
+
+    if (parseInt(mm) < 10) {
+      mm = '0' + mm;
+    }
+    let formattedDate = yyyy + mm + dd;
+    return formattedDate;
+  }
 }

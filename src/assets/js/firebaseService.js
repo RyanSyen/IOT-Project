@@ -38,7 +38,7 @@ if (mm < 10) {
   mm = '0' + mm;
 }
 today = yyyy + mm + dd;
-console.log(today);
+// console.log(today);
 
 //* onchange events (this one check for value added, removed and updated)
 const dbRef_Ctrl = secondaryApp.database().ref('CR13_CONTROL')

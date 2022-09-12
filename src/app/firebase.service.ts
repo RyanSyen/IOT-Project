@@ -1,69 +1,71 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { Firestore, getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, DocumentData, CollectionReference, onSnapshot, QuerySnapshot } from 'firebase/firestore'
+import { Firestore, getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, DocumentData, CollectionReference, onSnapshot, QuerySnapshot, DocumentReference } from 'firebase/firestore'
 import { getDatabase, ref, onValue } from '@angular/fire/database';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Subject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Emp } from './interfaces/emp';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { map } from 'rxjs/operators';
+import { TimeScale } from 'chart.js';
+
+
+
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
+  // private empAttendance: AngularFirestoreCollection<any>;
+  // private empAttendance1: AngularFirestoreDocument<any> | undefined;
 
-  db: Firestore;
-  studentCol: CollectionReference<DocumentData>;
-  private updatedSnapshot = new Subject<QuerySnapshot<DocumentData>>();
-  obsr_UpdatedSnapshot = this.updatedSnapshot.asObservable();
+  constructor(private readonly afs: AngularFirestore, private firestore: AngularFirestore, private db: AngularFireDatabase) {
+    // this.empAttendance = afs.collection<any>('empAttendance');
 
-  // database reference
-  // const dbRef1 = firebase1.database().ref();
-  dbRef = getDatabase();
-
-  constructor() {
-    initializeApp(environment.firebase1);
-    this.db = getFirestore();
-    this.studentCol = collection(this.db, 'students');
-
-    // Get Realtime Data
-    onSnapshot(this.studentCol, (snapshot) => {
-      this.updatedSnapshot.next(snapshot);
-    }, (err) => {
-      console.log(err);
-    })
   }
+
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
   }
 
-  async getStudents() {
-    const snapshot = await getDocs(this.studentCol);
-    return snapshot;
+  getEmployee() {
+    return this.firestore.collection('emps').valueChanges();
   }
 
+  setAttendance(date: any) {
+    //! cannot use firestore due to destructive updates and limitations of adding with customized key values
+    // this.empAttendance1 = this.afs.doc<any>('empAttendance/' + date);
+    // this.getEmployee().subscribe(res => {
+    //   let emp: any;
+    //   res.forEach(element => {
+    //     emp = element;
 
-  async addStudent(name: string, age: string) {
-    await addDoc(this.studentCol, {
-      name,
-      age
+    //     let empID = emp.id;
+    //     console.log(empID)
+    //     // this.empAttendance.doc(date).set({ [empID]: '0' });
+    //     // this.empAttendance1?.set({ [empID]: '0' });
+    //     this.empAttendance1?.set({ empID: empID });
+    //     this.empAttendance.
+
+    //   });
+    // })
+
+    const ref = this.db.list("empAttendance/" + date);
+    let emp: any;
+    this.getEmployee().subscribe(res => {
+      res.forEach(element => {
+        emp = element;
+        let empID = emp.id;
+        ref.set(emp.id, 0);
+      });
     })
-    return;
+
   }
-
-  async deleteStudent(docId: string) {
-    const docRef = doc(this.db, 'students', docId)
-    await deleteDoc(docRef);
-    return;
-  }
-
-  async updateStudent(docId: string, name: string, age: string) {
-    const docRef = doc(this.db, 'students', docId);
-    await updateDoc(docRef, { name, age })
-    return;
-  }
-
-  // retrieve current component status from CR13_Current
-
 
 }
+
 

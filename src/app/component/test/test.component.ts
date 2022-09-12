@@ -24,23 +24,23 @@ export class TestComponent implements OnInit {
 
   ngOnInit(): void {
     this.get();
-    this.firebaseService.obsr_UpdatedSnapshot.subscribe((snapshot) => {
-      this.updateStudentCollection(snapshot);
-    })
+    // this.firebaseService.obsr_UpdatedSnapshot.subscribe((snapshot) => {
+    //   this.updateStudentCollection(snapshot);
+    // })
   }
 
 
 
   async add() {
     const { name, age } = this.studentDetails;
-    await this.firebaseService.addStudent(name, age);
+    // await this.firebaseService.addStudent(name, age);
     this.studentDetails.name = "";
     this.studentDetails.age = "";
   }
 
   async get() {
-    const snapshot = await this.firebaseService.getStudents();
-    this.updateStudentCollection(snapshot);
+    // const snapshot = await this.firebaseService.getStudents();
+    // this.updateStudentCollection(snapshot);
   }
 
   updateStudentCollection(snapshot: QuerySnapshot<DocumentData>) {
@@ -51,11 +51,11 @@ export class TestComponent implements OnInit {
   }
 
   async delete(docId: string) {
-    await this.firebaseService.deleteStudent(docId);
+    // await this.firebaseService.deleteStudent(docId);
   }
 
   async update(docId: string, name: HTMLInputElement, age: HTMLInputElement) {
-    await this.firebaseService.updateStudent(docId, name.value, age.value);
+    // await this.firebaseService.updateStudent(docId, name.value, age.value);
   }
 
 
