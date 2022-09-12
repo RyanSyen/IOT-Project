@@ -64,6 +64,53 @@
     </div>
   </div>
 
+
+  <div class="panel3">
+    <!-- <div class="panel3-container"> -->
+    <!-- temperature status (cool/hot) -->
+    <div class="component">
+      <h3>Temp Status</h3>
+      <div class="status active" id="status1">
+        <img id="tempImg" src="../../../assets/dashboard/cool.png" alt="cool">
+        <p>{{tempSensor}}</p>
+      </div>
+    </div>
+    <!-- humidity status (normal/very humid) -->
+    <div class="component">
+      <h3>Humidity Status</h3>
+      <div class="status active" id="status2">
+        <img id="humidityImg" src="../../../assets/dashboard/normal-humid.png" alt="cool">
+        <p>{{humidSensor}}%</p>
+      </div>
+    </div>
+    <!-- parking lot status (x/y) -->
+    <div class="component">
+      <h3>Parking lot status</h3>
+      <div class="status active" id="status3">
+        <img id="parkingImg" src="../../../assets/dashboard/park.png" alt="parking">
+        <p>{{parkingOccupied}}/150</p>
+      </div>
+    </div>
+    <!-- lamp post status (active/inactive) -->
+    <div class="component">
+      <h3>Lamp post Status</h3>
+      <div class="status active" id="status4">
+        <img id="lamppostImg" src="../../../assets/dashboard/empty.png" alt="cool">
+        <p>{{lightSensorStatus}}</p>
+      </div>
+    </div>
+    <!-- doorbell status (active/inactive) -->
+    <div class="component">
+      <h3>Doorbell Status</h3>
+
+      <div class="status active" id="status5">
+        <img class="doorbell" id="doorbellImg" src="../../../assets/dashboard/inactive-bell.png" alt="doorbell">
+        <p>{{doorbellSensorStatus}}</p>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+
   <div class="panel2">
     <div class="panel2-left component">
       <div class="dropdown">
@@ -91,37 +138,5 @@
         <canvas id="MyDoughnutChart1">{{ doughnutChart1 }}</canvas>
       </div>
     </div>
-  </div>
-
-  <div class="panel3">
-    <!-- <div class="panel3-container"> -->
-    <!-- temperature status (cool/hot) -->
-    <div class="component">
-      <h6>Temp Status</h6>
-      <img src="../../../assets/dashboard/cool.png" alt="cool">
-      <!-- <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_ZIjbuX.json" background="transparent" speed="1"
-        style="width: 300px; height: 300px;" loop autoplay></lottie-player> -->
-    </div>
-    <!-- humidity status (normal/very humid) -->
-    <div class="component">
-      <h6>Humidity Status</h6>
-      <img src="../../../assets/dashboard/normal-humid.png" alt="cool">
-    </div>
-    <!-- parking lot status (x/y) -->
-    <div class="component">
-      <h6>Parking lot status</h6>
-
-    </div>
-    <!-- lamp post status (active/inactive) -->
-    <div class="component">
-      <h6>Lamp post Status</h6>
-      <img src="../../../assets/dashboard/empty.png" alt="cool">
-    </div>
-    <!-- doorbell status (active/inactive) -->
-    <div class="component">
-      <h6>Doorbell Status</h6>
-      <img class="doorbell" src="../../../assets/dashboard/inactive-bell.png" alt="cool">
-    </div>
-    <!-- </div> -->
   </div>
 </section>

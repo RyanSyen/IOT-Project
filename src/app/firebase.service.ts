@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { Firestore, getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, DocumentData, CollectionReference, onSnapshot, QuerySnapshot } from 'firebase/firestore'
-import { Subject } from 'rxjs';
+import { getDatabase, ref, onValue } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Subject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,6 +15,10 @@ export class FirebaseService {
   studentCol: CollectionReference<DocumentData>;
   private updatedSnapshot = new Subject<QuerySnapshot<DocumentData>>();
   obsr_UpdatedSnapshot = this.updatedSnapshot.asObservable();
+
+  // database reference
+  // const dbRef1 = firebase1.database().ref();
+  dbRef = getDatabase();
 
   constructor() {
     initializeApp(environment.firebase1);
@@ -55,6 +61,9 @@ export class FirebaseService {
     await updateDoc(docRef, { name, age })
     return;
   }
+
+  // retrieve current component status from CR13_Current
+
 
 }
 

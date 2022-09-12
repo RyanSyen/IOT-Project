@@ -55,18 +55,18 @@ const dbRef_History = secondaryApp.database().ref('CR13/' + today)
 // });
 
 dbRef_Ctrl.on('child_changed', (snapshot) => {
-  console.log(snapshot.val())
+  // console.log(snapshot.val())
 });
 
 dbRef_Current.on('child_changed', (snapshot) => {
-  console.log(snapshot.key + " " + snapshot.val())
+  // console.log(snapshot.key + " " + snapshot.val())
   var key = snapshot.key;
   var data = snapshot.val();
   personalFirebase.database().ref('CR13_CURRENT/' + key).set(data);
 });
 
 dbRef_History.on('child_changed', (snapshot) => {
-  console.log(snapshot.val())
+  // console.log(snapshot.val())
   snapshot.forEach((childSnapshot) => {
     var childKey = childSnapshot.key;
     var childData = childSnapshot.val();
