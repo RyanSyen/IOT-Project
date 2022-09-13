@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Injectable } from '@angular/core';
 import { LocalService } from 'src/app/services/local.service';
 import Chart from 'chart.js/auto';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
@@ -13,7 +13,7 @@ import { FirebaseService } from 'src/app/firebase.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-
+@Injectable({ providedIn: 'root' })
 
 export class DashboardComponent implements OnInit {
 
@@ -182,21 +182,21 @@ export class DashboardComponent implements OnInit {
       this.daytime = true;
 
       // off lamp post light
-      let el = document.getElementById('status4');
-      el?.classList.remove('inactive');
+      let el4 = document.getElementById('status4');
+      el4?.classList.remove('inactive');
 
       this.lightSensorStatus = "inactive";
-      let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
-      el1.src = "../../../assets/dashboard/empty.png";
+      let el11 = document.getElementById('lamppostImg') as HTMLImageElement;
+      el11.src = "../../../assets/dashboard/empty.png";
     } else {
       this.daytime = false;
       this.lightSensorStatus = "active";
       // on lamp post light
-      let el = document.getElementById('status4');
-      el?.classList.add('inactive');
+      let el5 = document.getElementById('status4');
+      el5?.classList.add('inactive');
 
-      let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
-      el1.src = "../../../assets/dashboard/light.png";
+      let el12 = document.getElementById('lamppostImg') as HTMLImageElement;
+      el12.src = "../../../assets/dashboard/light.png";
     }
 
     var min = today.getMinutes();
@@ -1108,16 +1108,16 @@ export class DashboardComponent implements OnInit {
               this.humidSensor = action.payload.val();
               this.humidSensor = this.humidSensor * 10;
               if (parseInt(this.humidSensor) > 93) {
-                let el = document.getElementById('status2');
-                el?.classList.add('inactive');
+                let el2 = document.getElementById('status2');
+                el2?.classList.add('inactive');
 
-                let el1 = document.getElementById('humidityImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/very-humid.png";
+                let el3 = document.getElementById('humidityImg') as HTMLImageElement;
+                el3.src = "../../../assets/dashboard/very-humid.png";
               } else {
-                let el = document.getElementById('status2');
-                el?.classList.remove('inactive');
-                let el1 = document.getElementById('humidityImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/normal-humid.png";
+                let el2 = document.getElementById('status2');
+                el2?.classList.remove('inactive');
+                let el3 = document.getElementById('humidityImg') as HTMLImageElement;
+                el3.src = "../../../assets/dashboard/normal-humid.png";
               }
             } else if (key == 'sound') {
               this.soundSensor = action.payload.val();

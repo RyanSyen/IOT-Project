@@ -7,14 +7,15 @@
 }
 
 .section1 {
-  display: flex;
-  flex-direction: column;
-  // width: 100%;
-  max-width: 1050px;
-  height: 100%;
-  // margin-left: 100px;
-  padding-left: 100px;
-  margin: auto;
+  // display: flex;
+  // flex-direction: column;
+  // // width: 100%;
+  // max-width: 1050px;
+  // height: 100%;
+  // // margin-left: 100px;
+  // padding-left: 100px;
+  // margin: auto;
+  @include section;
 }
 
 .upperPanel {
@@ -25,10 +26,11 @@
 
 //* global component style
 .component {
-  padding: 20px;
-  background-color: $component-background-color;
-  color: #6C7293;
-  border-radius: 5px;
+  // padding: 20px;
+  // background-color: $component-background-color;
+  // color: #6C7293;
+  // border-radius: 5px;
+  @include component;
 }
 
 //* clock component

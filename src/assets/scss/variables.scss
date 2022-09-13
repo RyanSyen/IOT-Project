@@ -31,3 +31,19 @@ $font-weights: ( // key : value
   align-items: center;
   flex-direction: $direction;
 }
+
+@mixin component {
+  padding: 20px;
+  background-color: $component-background-color;
+  color: #6C7293;
+  border-radius: 5px;
+}
+
+@mixin section {
+  display: flex;
+  flex-direction: column;
+  max-width: 1050px;
+  height: 100%;
+  padding-left: 100px;
+  margin: auto;
+}

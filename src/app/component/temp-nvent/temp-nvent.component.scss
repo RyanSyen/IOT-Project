@@ -1,10 +1,51 @@
 @import "../../../styles.scss";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-
 .section2 {
+  @include section;
+}
+
+.component {
+  @include component;
+}
+
+.table-header {
+  text-align: center;
+  color: #fd821a;
+  font-weight: 600;
+  font-size: large;
+  word-spacing: 0.09cm;
+}
+
+.table {
+  color: $inactive-font-color;
+
+  text-align: center;
+
+  .header {
+    color: #f6f6f6;
+    font-weight: 500;
+    font-size: larger;
+  }
+
+  .floorNum {
+    font-weight: 500;
+  }
+}
+
+.panel2 {
+  margin-top: 25px;
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
+  align-items: stretch;
+  @include flexCenter(column);
+
+  #{&}-1 {
+    flex-grow: 1;
+    @include flexCenter(row);
+    justify-content: space-around !important;
+
+    div {
+      flex-grow: 1;
+    }
+  }
 }
