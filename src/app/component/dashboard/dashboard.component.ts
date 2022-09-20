@@ -1,21 +1,36 @@
-import { Component, OnInit, ElementRef, Injectable } from '@angular/core';
+import { Component, OnInit, ElementRef, Injectable, OnDestroy } from '@angular/core';
 import { LocalService } from 'src/app/services/local.service';
 import Chart from 'chart.js/auto';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Emp } from 'src/app/interfaces/emp';
 import { FirebaseService } from 'src/app/firebase.service';
+import { GenerateRandService } from 'src/app/services/generate-rand.service';
+import { stringLength } from '@firebase/util';
+
+//* interface 
+interface sensorVal {
+  humid: string,
+  light: string,
+  poten: string,
+  rand1: string,
+  rand2: string,
+  sound: string,
+  tempe: string
+}
+
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-@Injectable({ providedIn: 'root' })
+// @Injectable({ providedIn: 'root' })
 
-export class DashboardComponent implements OnInit {
+
+export class DashboardComponent implements OnInit, OnDestroy {
 
   //* weather
   weatherAPI = "e38e793b0540890a262fbffc0d9c534a";
@@ -118,10 +133,10 @@ export class DashboardComponent implements OnInit {
   private empCollection: AngularFirestoreCollection<Emp>;
   emps: Observable<Emp[]>;
 
+  subscription: Subscription;
 
 
-
-  constructor(private localService: LocalService, private elementRef: ElementRef, private db: AngularFireDatabase, private readonly afs: AngularFirestore, private firebaseService: FirebaseService) {
+  constructor(private localService: LocalService, private elementRef: ElementRef, private db: AngularFireDatabase, private readonly afs: AngularFirestore, private firebaseService: FirebaseService, private randService: GenerateRandService) {
 
     this.empCollection = this.afs.collection<Emp>('emps');
     this.emps = this.empCollection.valueChanges({ idField: 'customID' });
@@ -147,12 +162,34 @@ export class DashboardComponent implements OnInit {
 
     //! get realtime data using snapshotchanges() -> not working properly
     // get realtime data using valueChanges()
-    this.get_emp_records_using_valueChanges();
+    // this.get_emp_records_using_valueChanges();
 
+    this.subscription = this.db.list('CR13_CURRENT').valueChanges().subscribe(res => {
 
+      if (res) {
+        //* humidity
+        this.humidSensor = res[0];
+        this.checkHumidity(this.humidSensor);
+        //* lights
+        this.soundSensor = res[1];
+        //* potentiometer
+        this.potenSensor = res[2];
+        //* rand1
+        this.rand1Sensor = res[3];
+        //* rand2
+        this.rand2Sensor = res[4];
+        //* sound
+        this.soundSensor = res[5];
+        //* tempe
+        this.tempSensor = res[6];
+        this.checkTemp(this.tempSensor);
+      }
+    });
   }
 
   ngOnInit(): void {
+
+
     this.startTime();
     this.getLocation();
 
@@ -162,7 +199,7 @@ export class DashboardComponent implements OnInit {
     this.createDoughnutChart1();
 
     // get current component status in realtime
-    this.get_current_component_status();
+    // this.subscription = this.get_current_component_status();
 
     // get other component status in realtime
     this.get_other_component_status();
@@ -181,28 +218,33 @@ export class DashboardComponent implements OnInit {
     if (hr > 7 && hr < 19) {
       this.daytime = true;
 
-      // off lamp post light
-      let el4 = document.getElementById('status4');
-      el4?.classList.remove('inactive');
 
-      this.lightSensorStatus = "inactive";
-      let el11 = document.getElementById('lamppostImg') as HTMLImageElement;
-      el11.src = "../../../assets/dashboard/empty.png";
     } else {
       this.daytime = false;
-      this.lightSensorStatus = "active";
-      // on lamp post light
-      let el5 = document.getElementById('status4');
-      el5?.classList.add('inactive');
 
-      let el12 = document.getElementById('lamppostImg') as HTMLImageElement;
-      el12.src = "../../../assets/dashboard/light.png";
     }
 
     var min = today.getMinutes();
     var sec = today.getSeconds();
 
-    this.timeSnaphot = hr + ":" + min + ":" + sec;
+    if (min < 10) {
+      var minutes = "0" + min;
+      if (sec < 10) {
+        var seconds = "0" + sec;
+        this.timeSnaphot = hr + ":" + minutes + ":" + seconds;
+      } else {
+        this.timeSnaphot = hr + ":" + minutes + ":" + sec;
+      }
+    } else {
+      if (sec < 10) {
+        var seconds = "0" + sec;
+        this.timeSnaphot = hr + ":" + min + ":" + seconds;
+      } else {
+        this.timeSnaphot = hr + ":" + min + ":" + sec;
+      }
+      this.timeSnaphot = hr + ":" + min + ":" + sec;
+    }
+
     // this.timeLabel.push(this.timeSnaphot);
     var ap = (hr < 12) ? "<span>AM</span>" : "<span>PM</span>";
     hr = (hr == 0) ? 12 : hr;
@@ -1094,82 +1136,142 @@ export class DashboardComponent implements OnInit {
   get_current_component_status() {
 
     const ref = this.db.list("CR13_CURRENT");
-    // 1st method (better as it returns the actual object key)
-    ref.snapshotChanges(['child_changed'])
-      .subscribe(actions => {
-        actions.forEach(action => {
-          // console.log(action.type); 
-          // console.log(action.key); 
-          // console.log(action.payload.val());
-          var key = action.key?.toString();
-          if (key) {
-            if (key == 'humid') {
 
-              this.humidSensor = action.payload.val();
-              this.humidSensor = this.humidSensor * 10;
-              if (parseInt(this.humidSensor) > 93) {
-                let el2 = document.getElementById('status2');
-                el2?.classList.add('inactive');
+    // // 1st method (better as it returns the actual object key)
+    // const refSub = ref.snapshotChanges(['child_changed'])
+    //   .subscribe(actions => {
+    //     actions.forEach(action => {
+    //       // console.log(action.type); 
+    //       // console.log(action.key); 
+    //       // console.log(action.payload.val());
+    //       var key = action.key?.toString();
+    //       if (key) {
+    //         // console.log(key)
+    //         if (key == 'humid') {
 
-                let el3 = document.getElementById('humidityImg') as HTMLImageElement;
-                el3.src = "../../../assets/dashboard/very-humid.png";
-              } else {
-                let el2 = document.getElementById('status2');
-                el2?.classList.remove('inactive');
-                let el3 = document.getElementById('humidityImg') as HTMLImageElement;
-                el3.src = "../../../assets/dashboard/normal-humid.png";
-              }
-            } else if (key == 'sound') {
-              this.soundSensor = action.payload.val();
-            } else if (key == 'light') {
-              this.lightSensor = action.payload.val();
+    //           this.humidSensor = action.payload.val();
+    //           this.humidSensor = this.humidSensor * 10;
+    //           if (parseInt(this.humidSensor) > 93) {
+    //             let el2 = document.getElementById('status2');
+    //             el2?.classList.add('inactive');
 
-              // using light sensor values
-              // if (parseInt(this.lightSensor) == 1) {
-              //   let el = document.getElementById('status4');
-              //   el?.classList.remove('inactive');
-              //   this.lightSensorStatus = "active";
-              //   let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
-              //   el1.src = "../../../assets/dashboard/empty.png";
-              // } else {
-              //   let el = document.getElementById('status4');
-              //   el?.classList.add('inactive');
-              //   this.lightSensorStatus = "inactive";
-              //   let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
-              //   el1.src = "../../../assets/dashboard/light.png";
-              // }
+    //             let el3 = document.getElementById('humidityImg') as HTMLImageElement;
+    //             el3.src = "../../../assets/dashboard/very-humid.png";
+    //           } else {
+    //             let el22 = document.getElementById('status2');
+    //             el22?.classList.remove('inactive');
+    //             let el33 = document.getElementById('humidityImg') as HTMLImageElement;
+    //             console.log(el33.src);
+    //             el33.src = "../../../assets/dashboard/normal-humid.png";
+    //           }
+    //         } else if (key == 'sound') {
+    //           this.soundSensor = action.payload.val();
+    //         } else if (key == 'light') {
+    //           this.lightSensor = action.payload.val();
 
-            } else if (key == 'poten') {
-              this.soundSensor = action.payload.val();
-            } else if (key == 'rand1') {
-              this.rand1Sensor = action.payload.val();
-            } else if (key == 'rand2') {
-              this.rand2Sensor = action.payload.val();
-            } else if (key == 'tempe') {
-              this.tempSensor = action.payload.val();
-              if (parseInt(this.tempSensor) > 38) {
-                let el = document.getElementById('status1');
-                el?.classList.add('inactive');
+    //           // using light sensor values
+    //           // if (parseInt(this.lightSensor) == 1) {
+    //           //   let el = document.getElementById('status4');
+    //           //   el?.classList.remove('inactive');
+    //           //   this.lightSensorStatus = "active";
+    //           //   let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
+    //           //   el1.src = "../../../assets/dashboard/empty.png";
+    //           // } else {
+    //           //   let el = document.getElementById('status4');
+    //           //   el?.classList.add('inactive');
+    //           //   this.lightSensorStatus = "inactive";
+    //           //   let el1 = document.getElementById('lamppostImg') as HTMLImageElement;
+    //           //   el1.src = "../../../assets/dashboard/light.png";
+    //           // }
 
-                let el1 = document.getElementById('tempImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/hot.png";
-              } else {
-                let el = document.getElementById('status1');
-                el?.classList.remove('inactive');
+    //         } else if (key == 'poten') {
+    //           this.potenSensor = action.payload.val();
+    //         } else if (key == 'rand1') {
+    //           this.rand1Sensor = action.payload.val();
+    //         } else if (key == 'rand2') {
+    //           this.rand2Sensor = action.payload.val();
+    //         } else if (key == 'tempe') {
+    //           this.tempSensor = action.payload.val();
+    //           if (parseInt(this.tempSensor) > 38) {
+    //             let el = document.getElementById('status1');
+    //             el?.classList.add('inactive');
 
-                let el1 = document.getElementById('tempImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/cool.png";
-              }
-            }
-          }
-        });
-      });
+    //             let el1 = document.getElementById('tempImg') as HTMLImageElement;
+    //             el1.src = "../../../assets/dashboard/hot.png";
+    //           } else {
+    //             let el = document.getElementById('status1');
+    //             el?.classList.remove('inactive');
+
+    //             let el1 = document.getElementById('tempImg') as HTMLImageElement;
+    //             el1.src = "../../../assets/dashboard/cool.png";
+    //           }
+    //         }
+    //       }
+    //     });
+    //   });
+
     // 2nd method (does not return the actual key name)
-    // ref.valueChanges().subscribe((data) => {
-    //   console.log(data)
-    //   this.sound = data;
-    // })
+    // this.db.list<sensorVal>('CR13_CURRENT').valueChanges().subscribe((res: sensorVal[]) => {
+    this.db.list('CR13_CURRENT').valueChanges().subscribe(res => {
+
+      if (res) {
+        //* humidity
+        this.humidSensor = res[0];
+        this.checkHumidity(this.humidSensor);
+        //* lights
+        this.soundSensor = res[1];
+        //* potentiometer
+        this.potenSensor = res[2];
+        //* rand1
+        this.rand1Sensor = res[3];
+        //* rand2
+        this.rand2Sensor = res[4];
+        //* sound
+        this.soundSensor = res[5];
+        //* tempe
+        this.tempSensor = res[6];
+        this.checkTemp(this.tempSensor);
+      }
+    });
   }
+
+  checkHumidity(val: string) {
+    let value = parseInt(val);
+    if (value > 93) {
+      let el2 = document?.getElementById('status2');
+      el2?.classList.add('inactive');
+
+      let el3 = document?.getElementById('humidityImg') as HTMLImageElement;
+      el3.src = "../../../assets/dashboard/very-humid.png";
+    } else {
+      let el22 = document?.getElementById('status2');
+      el22?.classList.remove('inactive');
+      let el33 = document?.getElementById('humidityImg') as HTMLImageElement;
+      // console.log(el33.src);
+      if (el33.src) {
+        el33.src = "../../../assets/dashboard/normal-humid.png";
+      }
+
+    }
+  }
+
+  checkTemp(temp: string) {
+    let val = parseInt(temp);
+    if (val > 38) {
+      let el = document.getElementById('status1');
+      el?.classList.add('inactive');
+
+      let el1 = document?.getElementById('tempImg') as HTMLImageElement;
+      el1.src = "../../../assets/dashboard/hot.png";
+    } else {
+      let el = document.getElementById('status1');
+      el?.classList.remove('inactive');
+
+      let el1 = document?.getElementById('tempImg') as HTMLImageElement;
+      el1!.src = "../../../assets/dashboard/cool.png";
+    }
+  }
+
   get_other_component_status() {
     // get parking space value
 
@@ -1202,6 +1304,25 @@ export class DashboardComponent implements OnInit {
           }
         });
       });
+
+    // get day status
+    if (this.daytime == true) {
+      // off lamp post light
+      let el4 = document.getElementById('status4');
+      el4?.classList.remove('inactive');
+
+      this.lightSensorStatus = "inactive";
+      let el11 = document.getElementById('lamppostImg') as HTMLImageElement;
+      el11.src = "../../../assets/dashboard/empty.png";
+    } else {
+      this.lightSensorStatus = "active";
+      // on lamp post light
+      let el5 = document.getElementById('status4');
+      el5?.classList.add('inactive');
+
+      let el12 = document.getElementById('lamppostImg') as HTMLImageElement;
+      el12.src = "../../../assets/dashboard/light.png";
+    }
   }
   get_other_component_control() {
     // control doorbell value
@@ -1217,6 +1338,7 @@ export class DashboardComponent implements OnInit {
             if (key == 'doorbell') {
               this.doorbellSensor = action.payload.val();
               if (parseInt(this.doorbellSensor) == 1) {
+                this.doorbellSensorStatus = 'active';
                 let el = document.getElementById('status5');
                 el?.classList.add('inactive');
 
@@ -1253,11 +1375,14 @@ export class DashboardComponent implements OnInit {
 
 
               } else {
+                this.doorbellSensorStatus = 'inactive';
                 let el = document.getElementById('status5');
                 el?.classList.remove('inactive');
 
                 let el1 = document.getElementById('doorbellImg') as HTMLImageElement;
-                el1.src = "../../../assets/dashboard/inactive-bell.png";
+                if (el1.src) {
+                  el1.src = "../../../assets/dashboard/inactive-bell.png";
+                }
               }
             }
           }
@@ -1298,4 +1423,9 @@ export class DashboardComponent implements OnInit {
     let formattedDate = yyyy + mm + dd;
     return formattedDate;
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 }
