@@ -44,6 +44,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
+import { MessageModule } from 'primeng/message';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 import { RealTimeDBComponent } from './component/real-time-db/real-time-db.component';
 import { TestComponent } from './component/test/test.component';
@@ -55,6 +57,8 @@ import { LightingComponent } from './component/lighting/lighting.component';
 import { AttendanceComponent } from './component/attendance/attendance.component';
 import { DoorbellComponent } from './component/doorbell/doorbell.component';
 import { ReportComponent } from './component/report/report.component';
+import { SignInComponent } from './component/sign-in/sign-in.component';
+import { SignUpComponent } from './component/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -70,7 +74,9 @@ import { ReportComponent } from './component/report/report.component';
     LightingComponent,
     AttendanceComponent,
     DoorbellComponent,
-    ReportComponent
+    ReportComponent,
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +107,8 @@ import { ReportComponent } from './component/report/report.component';
     TooltipModule,
     HttpClientModule,
     DropdownModule,
+    MessageModule,
+    TabMenuModule,
   ],
   providers: [
     ScreenTrackingService, UserTrackingService, MessageService, AngularFirestoreModule

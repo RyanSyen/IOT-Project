@@ -36,6 +36,14 @@ export class FirebaseService {
     return this.firestore.collection('emps').valueChanges();
   }
 
+  getEmployeeFromDB() {
+    return this.db.list('Employee').snapshotChanges();
+  }
+
+  getDoorBellStatus() {
+    return this.db.list('OTHER_CONTROL').valueChanges();
+  }
+
   setAttendance(date: any) {
     //! cannot use firestore due to destructive updates and limitations of adding with customized key values
     // this.empAttendance1 = this.afs.doc<any>('empAttendance/' + date);
@@ -65,6 +73,8 @@ export class FirebaseService {
     })
 
   }
+
+
 
 }
 

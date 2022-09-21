@@ -27,6 +27,8 @@ export class SidemenuComponent implements OnInit {
   screenWidth: any;
   screenHeight: any;
 
+  requestInProgress = true;
+
 
   constructor(private primengConfig: PrimeNGConfig) {
 
@@ -39,6 +41,15 @@ export class SidemenuComponent implements OnInit {
 
     this.primengConfig.ripple = true;
     this.startTime();
+
+    window.onload = (event) => {
+      console.log('page is fully loaded' + event);
+      setTimeout(() => {
+        this.requestInProgress = false;
+      }, 2000);
+
+    };
+
   }
 
   @HostListener('window:resize', ['$event'])

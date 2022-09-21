@@ -1,1 +1,22 @@
-<p>attendance works!</p>
+<div class="section">
+
+  <div class="component">
+    <h3 class="table-header">Employee Attendance Report</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" class="header">Emp ID</th>
+          <th scope="col" class="header">Name</th>
+          <th scope="col" class="header">Sign-In Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees; index as i">
+          <td>{{header[i]}}</td>
+          <td>{{emp.name}}</td>
+          <td class="" id="status">{{emp.signinstatus}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

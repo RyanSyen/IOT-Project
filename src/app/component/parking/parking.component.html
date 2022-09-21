@@ -1,4 +1,7 @@
-<p>parking works!</p>
-<div class="chart-container-doughnut">
-  <canvas id="MyChart1">{{ chart }}</canvas>
+<div class="section">
+  <div class="tab-container">
+    <h2>Floors</h2>
+    <p-tabMenu class="tab" #tab [model]="floors" [activeItem]="activeItem" (click)="activateMenu(tab)">
+    </p-tabMenu>
+  </div>
 </div>

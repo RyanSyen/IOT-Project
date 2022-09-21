@@ -6,6 +6,7 @@ import { HomeComponent } from './component/home/home.component';
 import { RealTimeDBComponent } from './component/real-time-db/real-time-db.component';
 import { TestComponent } from './component/test/test.component';
 import { SidemenuComponent } from './component/sidemenu/sidemenu.component';
+import { SignInComponent } from './component/sign-in/sign-in.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +26,10 @@ const routes: Routes = [
     path: 'sidemenu',
     component: SidemenuComponent
   },
+  // {
+  //   path: 'signin',
+  //   component: SignInComponent
+  // },
 ];
 
 @NgModule({

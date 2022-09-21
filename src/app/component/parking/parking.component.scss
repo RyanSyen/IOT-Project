@@ -1,7 +1,27 @@
-.chart-container-doughnut {
-  background-color: #12151E;
-  width: 650px;
-  padding: 15px 20px;
-  border-radius: 5px;
-  height: 500px;
+@import "../../../styles.scss";
+
+.section {
+  @include section;
+}
+
+.component {
+  @include component;
+}
+
+.tab-container {
+
+  h2 {
+    font-size: x-large;
+    font-weight: 700;
+
+  }
+}
+
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link,
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+  background: #191c24;
+}
+
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav {
+  background-color: #000;
 }

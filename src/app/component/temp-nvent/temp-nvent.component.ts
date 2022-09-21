@@ -115,10 +115,7 @@ export class TempNventComponent implements OnInit {
 
     const color1 = this.randService.generateRandColor();
     let arr: any[] = this.randService.generateRandColor() ?? [];
-    // arr = color1;
-    console.log(arr)
     const [first, second] = [...arr];
-    console.log(first, second);
   }
 
   startTime() {
@@ -382,6 +379,282 @@ export class TempNventComponent implements OnInit {
     });
   }
 
+  createChartL2() {
+    const [first, second] = [...this.color5];
+
+    let l2chart = this.elementRef.nativeElement.querySelector(`#l2chart`);
+    this.l2chart = new Chart(l2chart, {
+      type: 'line',
+      data: {
+        labels: this.timeLabel5,
+        datasets: [
+          {
+            label: "Temperature",
+            data: this.tempValue5,
+            backgroundColor: first,
+            borderColor: first
+          },
+          {
+            label: "Humidity",
+            data: this.humidityValue5,
+            backgroundColor: second,
+            borderColor: second
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5,
+        plugins: {
+          decimation: {
+            enabled: true,
+          },
+          title: {
+            display: true,
+            text: 'Temp & Humidity',
+            padding: {
+              top: 10,
+              bottom: 10
+            },
+            color: '#ddd',
+            font: {
+              size: 18
+            }
+          },
+        },
+      }
+    });
+  }
+
+  createChartL3() {
+    const [first, second] = [...this.color6];
+
+    let l3chart = this.elementRef.nativeElement.querySelector(`#l3chart`);
+    this.l3chart = new Chart(l3chart, {
+      type: 'line',
+      data: {
+        labels: this.timeLabel6,
+        datasets: [
+          {
+            label: "Temperature",
+            data: this.tempValue6,
+            backgroundColor: first,
+            borderColor: first
+          },
+          {
+            label: "Humidity",
+            data: this.humidityValue6,
+            backgroundColor: second,
+            borderColor: second
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5,
+        plugins: {
+          decimation: {
+            enabled: true,
+          },
+          title: {
+            display: true,
+            text: 'Temp & Humidity',
+            padding: {
+              top: 10,
+              bottom: 10
+            },
+            color: '#ddd',
+            font: {
+              size: 18
+            }
+          },
+        },
+      }
+    });
+  }
+
+  createChartL4() {
+    const [first, second] = [...this.color7];
+
+    let l4chart = this.elementRef.nativeElement.querySelector(`#l4chart`);
+    this.l4chart = new Chart(l4chart, {
+      type: 'line',
+      data: {
+        labels: this.timeLabel7,
+        datasets: [
+          {
+            label: "Temperature",
+            data: this.tempValue7,
+            backgroundColor: first,
+            borderColor: first
+          },
+          {
+            label: "Humidity",
+            data: this.humidityValue7,
+            backgroundColor: second,
+            borderColor: second
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5,
+        plugins: {
+          decimation: {
+            enabled: true,
+          },
+          title: {
+            display: true,
+            text: 'Temp & Humidity',
+            padding: {
+              top: 10,
+              bottom: 10
+            },
+            color: '#ddd',
+            font: {
+              size: 18
+            }
+          },
+        },
+      }
+    });
+  }
+
+  createChartL5() {
+    const [first, second] = [...this.color8];
+
+    let l5chart = this.elementRef.nativeElement.querySelector(`#l5chart`);
+    this.l5chart = new Chart(l5chart, {
+      type: 'line',
+      data: {
+        labels: this.timeLabel8,
+        datasets: [
+          {
+            label: "Temperature",
+            data: this.tempValue8,
+            backgroundColor: first,
+            borderColor: first
+          },
+          {
+            label: "Humidity",
+            data: this.humidityValue8,
+            backgroundColor: second,
+            borderColor: second
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5,
+        plugins: {
+          decimation: {
+            enabled: true,
+          },
+          title: {
+            display: true,
+            text: 'Temp & Humidity',
+            padding: {
+              top: 10,
+              bottom: 10
+            },
+            color: '#ddd',
+            font: {
+              size: 18
+            }
+          },
+        },
+      }
+    });
+  }
+
+  createChartL6() {
+    const [first, second] = [...this.color9];
+
+    let l6chart = this.elementRef.nativeElement.querySelector(`#l6chart`);
+    this.l6chart = new Chart(l6chart, {
+      type: 'line',
+      data: {
+        labels: this.timeLabel9,
+        datasets: [
+          {
+            label: "Temperature",
+            data: this.tempValue9,
+            backgroundColor: first,
+            borderColor: first
+          },
+          {
+            label: "Humidity",
+            data: this.humidityValue9,
+            backgroundColor: second,
+            borderColor: second
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5,
+        plugins: {
+          decimation: {
+            enabled: true,
+          },
+          title: {
+            display: true,
+            text: 'Temp & Humidity',
+            padding: {
+              top: 10,
+              bottom: 10
+            },
+            color: '#ddd',
+            font: {
+              size: 18
+            }
+          },
+        },
+      }
+    });
+  }
+
+  createChartL7() {
+    const [first, second] = [...this.color10];
+
+    let l7chart = this.elementRef.nativeElement.querySelector(`#l7chart`);
+    this.l7chart = new Chart(l7chart, {
+      type: 'line',
+      data: {
+        labels: this.timeLabel10,
+        datasets: [
+          {
+            label: "Temperature",
+            data: this.tempValue10,
+            backgroundColor: first,
+            borderColor: first
+          },
+          {
+            label: "Humidity",
+            data: this.humidityValue10,
+            backgroundColor: second,
+            borderColor: second
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5,
+        plugins: {
+          decimation: {
+            enabled: true,
+          },
+          title: {
+            display: true,
+            text: 'Temp & Humidity',
+            padding: {
+              top: 10,
+              bottom: 10
+            },
+            color: '#ddd',
+            font: {
+              size: 18
+            }
+          },
+        },
+      }
+    });
+  }
+
   runCharts() {
     this.createChartB2();
     this.updateChartB2();
@@ -391,6 +664,18 @@ export class TempNventComponent implements OnInit {
     this.updateChartG();
     this.createChartL1();
     this.updateChartL1();
+    this.createChartL2();
+    this.updateChartL2();
+    this.createChartL3();
+    this.updateChartL3();
+    this.createChartL4();
+    this.updateChartL4();
+    this.createChartL5();
+    this.updateChartL5();
+    this.createChartL6();
+    this.updateChartL6();
+    this.createChartL7();
+    this.updateChartL7();
   }
 
   updateChartB2() {
@@ -455,4 +740,99 @@ export class TempNventComponent implements OnInit {
     var update = setTimeout(() => { this.updateChartL1() }, 2000);
   }
 
+  updateChartL2() {
+    if (this.timeLabel5.length > 4) {
+      this.timeLabel5.shift();
+      this.l2chart.data.datasets[0].data.shift();
+      this.l2chart.data.datasets[1].data.shift();
+    }
+
+    this.l2chart.data.labels.push(this.timeSnaphot);
+    this.l2chart.data.datasets[0].data.push(this.randService.generateRandTemp());
+    this.l2chart.data.datasets[1].data.push(this.randService.generateRandHumidity());
+    this.l2chart.update();
+    this.l2chart.update();
+
+    var update = setTimeout(() => { this.updateChartL2() }, 2000);
+  }
+
+  updateChartL3() {
+    if (this.timeLabel6.length > 4) {
+      this.timeLabel6.shift();
+      this.l3chart.data.datasets[0].data.shift();
+      this.l3chart.data.datasets[1].data.shift();
+    }
+
+    this.l3chart.data.labels.push(this.timeSnaphot);
+    this.l3chart.data.datasets[0].data.push(this.randService.generateRandTemp());
+    this.l3chart.data.datasets[1].data.push(this.randService.generateRandHumidity());
+    this.l3chart.update();
+    this.l3chart.update();
+
+    var update = setTimeout(() => { this.updateChartL3() }, 2000);
+  }
+
+  updateChartL4() {
+    if (this.timeLabel7.length > 4) {
+      this.timeLabel7.shift();
+      this.l4chart.data.datasets[0].data.shift();
+      this.l4chart.data.datasets[1].data.shift();
+    }
+
+    this.l4chart.data.labels.push(this.timeSnaphot);
+    this.l4chart.data.datasets[0].data.push(this.randService.generateRandTemp());
+    this.l4chart.data.datasets[1].data.push(this.randService.generateRandHumidity());
+    this.l4chart.update();
+    this.l4chart.update();
+
+    var update = setTimeout(() => { this.updateChartL4() }, 2000);
+  }
+
+  updateChartL5() {
+    if (this.timeLabel8.length > 4) {
+      this.timeLabel8.shift();
+      this.l5chart.data.datasets[0].data.shift();
+      this.l5chart.data.datasets[1].data.shift();
+    }
+
+    this.l5chart.data.labels.push(this.timeSnaphot);
+    this.l5chart.data.datasets[0].data.push(this.randService.generateRandTemp());
+    this.l5chart.data.datasets[1].data.push(this.randService.generateRandHumidity());
+    this.l5chart.update();
+    this.l5chart.update();
+
+    var update = setTimeout(() => { this.updateChartL5() }, 2000);
+  }
+
+  updateChartL6() {
+    if (this.timeLabel9.length > 4) {
+      this.timeLabel9.shift();
+      this.l6chart.data.datasets[0].data.shift();
+      this.l6chart.data.datasets[1].data.shift();
+    }
+
+    this.l6chart.data.labels.push(this.timeSnaphot);
+    this.l6chart.data.datasets[0].data.push(this.randService.generateRandTemp());
+    this.l6chart.data.datasets[1].data.push(this.randService.generateRandHumidity());
+    this.l6chart.update();
+    this.l6chart.update();
+
+    var update = setTimeout(() => { this.updateChartL6() }, 2000);
+  }
+
+  updateChartL7() {
+    if (this.timeLabel10.length > 4) {
+      this.timeLabel10.shift();
+      this.l7chart.data.datasets[0].data.shift();
+      this.l7chart.data.datasets[1].data.shift();
+    }
+
+    this.l7chart.data.labels.push(this.timeSnaphot);
+    this.l7chart.data.datasets[0].data.push(this.randService.generateRandTemp());
+    this.l7chart.data.datasets[1].data.push(this.randService.generateRandHumidity());
+    this.l7chart.update();
+    this.l7chart.update();
+
+    var update = setTimeout(() => { this.updateChartL7() }, 2000);
+  }
 }
