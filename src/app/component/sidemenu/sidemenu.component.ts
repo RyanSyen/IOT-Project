@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-sidemenu',
@@ -30,7 +31,7 @@ export class SidemenuComponent implements OnInit {
   requestInProgress = true;
 
 
-  constructor(private primengConfig: PrimeNGConfig) {
+  constructor(private primengConfig: PrimeNGConfig, public authenticationService: AuthenticationService) {
 
   }
 

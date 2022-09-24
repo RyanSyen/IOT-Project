@@ -95,7 +95,7 @@
     <a class="component-bkg" pTooltip="Notifications" tooltipPosition="bottom" (click)="notifications.toggle($event)">
       <mat-icon aria-label="Example home icon" class="mat-light">notifications</mat-icon>
     </a>
-    <a class="component-bkg header-component">
+    <!-- <a class="component-bkg header-component">
       <div class="navbar-profile ">
         <div [hidden]="!loggedIn" class="">
           <img alt="" class="img-xs rounded-circle" src="../../../assets/d-user.png">
@@ -106,6 +106,9 @@
           person
         </span>
       </div>
+    </a> -->
+    <a class="component-bkg" pTooltip="logout" tooltipPosition="bottom" (click)="authenticationService.SignOut()">
+      <mat-icon aria-label="Example home icon" class="mat-light">logout</mat-icon>
     </a>
   </div>
 </nav>

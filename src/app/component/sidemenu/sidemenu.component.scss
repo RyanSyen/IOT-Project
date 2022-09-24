@@ -113,7 +113,13 @@ body {
   transition: transform 0.2s;
 
   #{&}-right {
-    @include flexCenter(row);
+    // @include flexCenter(row);
+    // justify-content: space-around !important;
+    margin-right: 10px;
+
+    a {
+      margin-right: 18px;
+    }
   }
 }
 
