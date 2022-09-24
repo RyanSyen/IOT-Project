@@ -125,7 +125,6 @@ export class FirebaseService {
   getB1nB2() {
     this.db.list('OTHER_VALUES/pSpace').snapshotChanges().subscribe(res => {
       res.forEach(element => {
-        console.log(element.payload.val())
         if (element.key == "B1") {
           this.totalB1 = element.payload.val();
         } else if (element.key == "B2") {
@@ -133,7 +132,7 @@ export class FirebaseService {
         }
       });
       let total = this.totalB1 + this.totalB2;
-      console.log(total)
+      // console.log(total)
       const ref = this.db.list('OTHER_VALUES');
       ref.update('pSpace', { total: total })
     })

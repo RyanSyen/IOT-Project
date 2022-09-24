@@ -33,7 +33,7 @@
     <tbody>
       <tr *ngFor="let img of test; index as i">
         <th class="floorNum" scope="row">{{ img.name }}</th>
-        <td class="file-link">{{img.link}}</td>
+        <td class="file-link"><a href="{{img.link}}" target="_blank">{{img.link}}</a></td>
         <td> <img class="storage-img" [src]="img.link" alt="img"></td>
         <td>{{img.date}}</td>
         <td>{{img.time}}</td>
