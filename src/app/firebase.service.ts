@@ -9,7 +9,7 @@ import { Emp } from './interfaces/emp';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
 import { TimeScale } from 'chart.js';
-
+import { GenerateRandService } from 'src/app/services/generate-rand.service';
 
 
 
@@ -22,7 +22,9 @@ export class FirebaseService {
   // private empAttendance: AngularFirestoreCollection<any>;
   // private empAttendance1: AngularFirestoreDocument<any> | undefined;
 
-  constructor(private readonly afs: AngularFirestore, private firestore: AngularFirestore, private db: AngularFireDatabase) {
+  parking: any[] = [];
+
+  constructor(private readonly afs: AngularFirestore, private firestore: AngularFirestore, private db: AngularFireDatabase, private randService: GenerateRandService) {
     // this.empAttendance = afs.collection<any>('empAttendance');
 
   }
@@ -74,7 +76,28 @@ export class FirebaseService {
 
   }
 
+  pushParkingtoDB() {
+    // populate parking
+    for (let i = 0; i < 50; i++) {
+      this.parking.push(
+        { id: i, val: this.randService.generate0ir1() }
+      )
+      // push to db
+      const ref = this.db.list("parking/B1");
+      this.parking.forEach(element => {
+        ref.set(element.id.toString(), element.val.toString())
+      });
+    }
+    console.log(this.parking);
+  }
 
+  getParkingB2() {
+    return this.db.list('parking/B2').valueChanges();
+  }
+
+  getParkingB1() {
+    return this.db.list('parking/B1').valueChanges();
+  }
 
 }
 

@@ -25,3 +25,29 @@
 :host ::ng-deep .p-tabmenu .p-tabmenu-nav {
   background-color: #000;
 }
+
+.vacant {
+  background-color: aquamarine;
+  border-radius: 5px;
+}
+
+.occupied {
+  background-color: red;
+  border-radius: 5px;
+}
+
+.carpark {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 15px;
+
+  #{&}-container {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  p {
+    width: 32px;
+    height: 32px;
+  }
+}

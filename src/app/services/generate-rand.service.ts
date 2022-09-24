@@ -42,4 +42,10 @@ export class GenerateRandService {
       if (array[i] == el) return true;
     return false;
   }
+
+  generate0ir1() {
+    // return Math.floor(Math.random() * 1) + 1;
+
+    return Math.round(Math.random());
+  }
 }
