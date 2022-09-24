@@ -1,4 +1,43 @@
 <div class="section">
+  <div class="tab-container">
+    <h2>Door bell</h2>
+  </div>
+  <div *ngIf="status == '0'">
+    <h2>Door bell not activated</h2>
+  </div>
+  <div *ngIf="status == '1'">
+    <h2>Door bell activated</h2>
+  </div>
+  <div class="doorbell-img">
+    <!-- <img [src]="profileUrl | async" /> -->
+    <!-- <img [src]="profileUrl" /> -->
+    <img [src]="img" />
+  </div>
 
-  <img [src]="profileUrl | async" />
+  <!-- <div *ngFor="let img of imgArr; index as i">
+    <img [src]="img" alt="img">
+  </div>
+  <div *ngFor="let img of test; index as i">
+    <img [src]="img.link" alt="img">
+  </div> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" class="header">Name</th>
+        <th scope="col" class="header">Link</th>
+        <th scope="col" class="header">Image</th>
+        <th scope="col" class="header">Date Uploaded</th>
+        <th scope="col" class="header">Time Uploaded</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let img of test; index as i">
+        <th class="floorNum" scope="row">{{ img.name }}</th>
+        <td class="file-link">{{img.link}}</td>
+        <td> <img class="storage-img" [src]="img.link" alt="img"></td>
+        <td>{{img.date}}</td>
+        <td>{{img.time}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

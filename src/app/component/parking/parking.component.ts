@@ -33,6 +33,8 @@ export class ParkingComponent implements OnInit {
     ];
     this.activeItem = this.floors[0];
 
+    // this.firebaseService.pushParkingtoDB();
+
     this.firebaseService.getParkingB2().subscribe(res => {
       // console.log(res)
       res.forEach(element => {
@@ -40,6 +42,7 @@ export class ParkingComponent implements OnInit {
           ++this.b2ParkingCount;
         }
       });
+      this.firebaseService.getB2(this.b2ParkingCount)
       this.b2Parking = res;
     })
 
@@ -50,9 +53,19 @@ export class ParkingComponent implements OnInit {
           ++this.b1ParkingCount;
         }
       });
+      // console.log(this.b1ParkingCount)
+      this.firebaseService.getB1(this.b1ParkingCount)
       this.b1Parking = res;
     })
+
+
+    // let total = this.b1ParkingCount + this.b2ParkingCount;
+    // console.log(this.b1ParkingCount + " " + this.b2ParkingCount)
+    this.firebaseService.getB1nB2();
+
   }
+
+
 
   activateMenu(event: any) {
     if (event.activeItem.label == 'B1') {

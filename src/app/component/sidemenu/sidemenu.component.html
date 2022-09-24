@@ -79,8 +79,8 @@
   </ng-template>
 </p-overlayPanel>
 
-<div class="overlay" *ngIf="requestInProgress">
-</div>
+<!-- <div class="overlay" *ngIf="requestInProgress">
+</div> -->
 
 <nav class="navbar" [class.nav-slide]="sidebarShow">
   <div class="header-component">
@@ -178,7 +178,7 @@
       <!-- <button class="sidebar-open btnsidebar" (click)="sidebarShow = !sidebarShow">
       Open Sidebar
     </button> -->
-      <app-dashboard></app-dashboard>
+      <app-dashboard (messageEvent)="updatePage($event)"></app-dashboard>
     </div>
     <div class="ventilation" *ngSwitchCase="'ventilation'">
       <app-temp-nvent></app-temp-nvent>

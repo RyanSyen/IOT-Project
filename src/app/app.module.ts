@@ -46,6 +46,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessageModule } from 'primeng/message';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ButtonModule } from 'primeng/button';
 
 import { RealTimeDBComponent } from './component/real-time-db/real-time-db.component';
 import { TestComponent } from './component/test/test.component';
@@ -109,6 +110,7 @@ import { SignUpComponent } from './component/sign-up/sign-up.component';
     DropdownModule,
     MessageModule,
     TabMenuModule,
+    ButtonModule,
   ],
   providers: [
     ScreenTrackingService, UserTrackingService, MessageService, AngularFirestoreModule

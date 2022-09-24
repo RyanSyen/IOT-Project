@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, Injectable, OnDestroy } from '@angular/core';
+
+import { Component, OnInit, ElementRef, Injectable, OnDestroy, EventEmitter, Input, Output } from '@angular/core';
 import { LocalService } from 'src/app/services/local.service';
 import Chart from 'chart.js/auto';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
@@ -9,6 +10,10 @@ import { Emp } from 'src/app/interfaces/emp';
 import { FirebaseService } from 'src/app/firebase.service';
 import { GenerateRandService } from 'src/app/services/generate-rand.service';
 import { stringLength } from '@firebase/util';
+import { MessageService } from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
+import { Router } from '@angular/router';
+
 
 //* interface 
 interface sensorVal {
@@ -135,8 +140,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
+  @Output() messageEvent = new EventEmitter<string>();
 
-  constructor(private localService: LocalService, private elementRef: ElementRef, private db: AngularFireDatabase, private readonly afs: AngularFirestore, private firebaseService: FirebaseService, private randService: GenerateRandService) {
+  constructor(private localService: LocalService, private elementRef: ElementRef, private db: AngularFireDatabase, private readonly afs: AngularFirestore, private firebaseService: FirebaseService, private randService: GenerateRandService, private messageService: MessageService, private primengConfig: PrimeNGConfig, private router: Router) {
 
     this.empCollection = this.afs.collection<Emp>('emps');
     this.emps = this.empCollection.valueChanges({ idField: 'customID' });
@@ -158,7 +164,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const ref = this.db.list("OTHER_VALUES");
     const ref1 = this.db.list("OTHER_CONTROL");
     // ref.set('pSpace', 149);
-    ref1.set('doorbell', 0);
+    // ref1.set('doorbell', 0);
 
     //! get realtime data using snapshotchanges() -> not working properly
     // get realtime data using valueChanges()
@@ -188,7 +194,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
+    this.primengConfig.ripple = true;
 
     this.startTime();
     this.getLocation();
@@ -1237,7 +1243,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   checkHumidity(val: string) {
     let value = parseInt(val);
-    if (value > 93) {
+    if (value > 65) {
       let el2 = document?.getElementById('status2');
       el2?.classList.add('inactive');
 
@@ -1275,7 +1281,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   get_other_component_status() {
     // get parking space value
 
-    const ref1 = this.db.list("OTHER_VALUES");
+    const ref1 = this.db.list("OTHER_VALUES/pSpace");
     ref1.snapshotChanges(['child_changed'])
       .subscribe(actions => {
         actions.forEach(action => {
@@ -1284,7 +1290,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           // console.log(action.payload.val());
           var key = action.key?.toString();
           if (key) {
-            if (key == 'pSpace') {
+            if (key == 'total') {
               this.parkingOccupied = action.payload.val();
 
               if (this.parkingOccupied > 149) {
@@ -1338,12 +1344,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
             if (key == 'doorbell') {
               this.doorbellSensor = action.payload.val();
               if (parseInt(this.doorbellSensor) == 1) {
+
                 this.doorbellSensorStatus = 'active';
                 let el = document.getElementById('status5');
                 el?.classList.add('inactive');
 
                 let el1 = document.getElementById('doorbellImg') as HTMLImageElement;
                 el1.src = "../../../assets/dashboard/alert-edited.gif";
+
+                // apply toast
+                //! cannot apply toast because you need to update the page by calling the function 
+                this.showConfirm();
 
                 // play audio
                 var audio = document.createElement("audio");
@@ -1426,6 +1437,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  showConfirm() {
+    this.messageService.clear();
+    this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'Check CCTV' });
+  }
+
+  onConfirm() {
+    this.messageEvent.emit('doorbell')
+    this.messageService.clear('c');
+
+  }
+
+  onReject() {
+    this.messageService.clear('c');
+  }
+
+  clear() {
+    this.messageService.clear();
+  }
+
+  navigateToDoorbellPage() {
+    this.router.navigate(['/sidemenu']);
   }
 
 }

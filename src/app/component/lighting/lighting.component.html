@@ -1,1 +1,19 @@
-<p>lighting works!</p>
+<div class="section">
+  <div class="tab-container">
+    <h2>Lamp post</h2>
+  </div>
+  <div>
+    <div *ngIf="lightSensor<'10'; else bright" class="dark">
+      <h4>Current light sensor status: dark</h4>
+      <h4>Lamp post: switched on</h4>
+      <img src="../../../assets/bright.png" alt="car">
+    </div>
+
+    <ng-template #bright class="bright">
+      <h4>Current light sensor status: bright</h4>
+      <h4>Lamp post: switched off</h4>
+      <img src="../../../assets/dark.png" alt="bright">
+    </ng-template>
+
+  </div>
+</div>

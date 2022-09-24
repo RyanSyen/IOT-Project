@@ -1,0 +1,58 @@
+@import "../../../styles.scss";
+
+.section {
+  @include section;
+}
+
+.component {
+  @include component;
+}
+
+.tab-container {
+
+  h2 {
+    font-size: x-large;
+    font-weight: 700;
+
+  }
+}
+
+.doorbell-img {
+  @include flexCenter(row);
+}
+
+.table-header {
+  text-align: center;
+  color: #fd821a;
+  font-weight: 600;
+  font-size: large;
+  word-spacing: 0.09cm;
+}
+
+.table {
+  color: $inactive-font-color;
+  text-align: center;
+
+  .header {
+    color: #f6f6f6;
+    font-weight: 500;
+    font-size: larger;
+  }
+
+  .floorNum {
+    font-weight: 500;
+  }
+
+  td {
+    max-width: 200px;
+  }
+}
+
+.storage-img {
+  width: 100px;
+  height: 100px;
+}
+
+.file-link {
+  overflow-wrap: break-word;
+}
