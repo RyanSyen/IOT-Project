@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { Firestore, getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, DocumentData, CollectionReference, onSnapshot, QuerySnapshot, DocumentReference } from 'firebase/firestore'
 import { getDatabase, ref, onValue } from '@angular/fire/database';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Subject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Emp } from './interfaces/emp';
@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 import { TimeScale } from 'chart.js';
 import { GenerateRandService } from 'src/app/services/generate-rand.service';
 import { ThemeService } from 'ng2-charts';
-
+import { FileUpload } from './interfaces/file';
 
 
 
@@ -239,6 +239,10 @@ export class FirebaseService {
 
   addAttendanceDate(date: any) {
     return this.db.list("report/parking/" + date).snapshotChanges();
+  }
+
+  getCurrentCCTVImage() {
+    return this.db.list('CCTV').valueChanges();
   }
 }
 

@@ -1,17 +1,20 @@
 import { GenerateRandService } from 'src/app/services/generate-rand.service';
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { FirebaseService } from 'src/app/firebase.service';
 import { LocalService } from 'src/app/services/local.service';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import Chart from 'chart.js/auto';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss']
 })
+
+
 export class ReportComponent implements OnInit {
 
   modules: any[] = [];
@@ -39,6 +42,8 @@ export class ReportComponent implements OnInit {
   fileDate = "";
   img: any;
   profileUrl: Observable<string | null> | undefined;
+  fileUploads: any;
+
 
   constructor(private firebase: FirebaseService, private rand: GenerateRandService, private local: LocalService, private db: AngularFireDatabase, private elementRef: ElementRef, private storage: AngularFireStorage) {
     // this.db.list("report/ventilation").snapshotChanges().subscribe(res => {
@@ -79,6 +84,8 @@ export class ReportComponent implements OnInit {
     // this.firebase.populateVentilationReport();
 
     this.getFileDetails();
+
+
   }
 
   activateMenu(event: any) {
@@ -233,18 +240,30 @@ export class ReportComponent implements OnInit {
 
   getFileDetails() {
     let date = this.local.getDateTime();
-    console.log(date)
+    // console.log(date)
     const ref = this.storage.ref('');
     let myurlsubscription = ref.listAll().subscribe((data) => {
       for (let i = 0; i < data.items.length; i++) {
+        let size = data.items.length;
+        // let currentImg = data.items[size].link;
+
         let name = data.items[i].name;
         let newref = this.storage.ref(data.items[i].name);
+        let currentImgRef = this.storage.ref(data.items[size - 1].name);
+        currentImgRef.getDownloadURL().subscribe((val) => {
+          //* this displays the latest img url
+          const ref = this.db.list("CCTV");
+          ref.set("latestImage", val)
+          console.log(val)
+          //* open image in new window
+          // this.openImg(val);
+        })
         let url = newref.getDownloadURL().subscribe((data) => {
-          console.log(data)
+          // console.log(data)
           let link = data;
           let date = newref.getMetadata().subscribe((data) => {
-            console.log(data)
-            console.log("name = " + data.name + "date = " + data.timeCreated)
+            // console.log(data)
+            // console.log("name = " + data.name + "date = " + data.timeCreated)
             const datee = data.timeCreated.slice(0, 10);
             const time = data.timeCreated.slice(11, 19);
             this.fileDate = datee;
@@ -257,6 +276,41 @@ export class ReportComponent implements OnInit {
           });
         });
       }
+
+      this.test.forEach(element => {
+        console.log(element)
+        console.log(Object.keys(this.test));
+      })
+
     });
+  }
+
+  openImg(url: any) {
+    // console.log(typeof (this.test), this.test)
+
+    // let val = await this.test;
+    // await console.log(Object.keys(val));
+    // for (var key in val) {
+    //   console.log(key);
+    //   console.log(val[key]);
+    // }
+    // val.forEach(element => {
+    //   console.log(element)
+    //   console.log(Object.keys(this.test));
+    // })
+
+    // let index = this.test.length;
+    var largeImage = document.getElementById('targetImg');
+    largeImage!.style.display = 'block';
+    largeImage!.style.width = 200 + "px";
+    largeImage!.style.height = 200 + "px";
+    // // var url = largeImage!.getAttribute('src');
+    // var url = this.test[index - 1].link;
+    // // console.log(url)
+    window.open(url, 'Image', 'width=largeImage.stylewidth,height=largeImage.style.height,resizable=1');
+  }
+
+  sendDisplayCCTVImage(val: any) {
+
   }
 }

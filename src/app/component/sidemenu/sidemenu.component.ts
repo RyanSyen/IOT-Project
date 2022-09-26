@@ -29,7 +29,7 @@ export class SidemenuComponent implements OnInit {
   screenHeight: any;
 
   requestInProgress = true;
-
+  message: any;
 
   constructor(private primengConfig: PrimeNGConfig, public authenticationService: AuthenticationService) {
 
@@ -137,6 +137,14 @@ export class SidemenuComponent implements OnInit {
 
     // update page
     this.page = newpage;
+  }
+
+  getDisplayCCTVImage(val: any) {
+
+  }
+
+  sendDisplayCCTVImage(val: any) {
+
   }
 
 }

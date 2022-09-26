@@ -134,25 +134,33 @@ const readHistoryFromCR = () => {
 }
 
 // test update CR
-function updateCR() {
-  // // A post entry.
-  // var postData = {
-  //   author: username,
-  //   uid: uid,
-  //   body: body,
-  //   title: title,
-  //   starCount: 0,
-  //   authorPic: picture
-  // };
-
-  // // Get a key for a new Post.
-  // var newPostKey = firebase.database().ref().child('posts').push().key;
-
-  // // Write the new post's data simultaneously in the posts list and the user's post list.
+function updateBuzzer(val) {
   var updates = {};
-  // updates['/posts/' + newPostKsey] = postData;
-  // updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-  updates['/CR13_CONTROL/buzzer'] = '0';
+  updates['/CR13_CONTROL/buzzer'] = val;
+  return dbRef2.update(updates);
+}
+
+function updateCamera(val) {
+  var updates = {};
+  updates['/CR13_CONTROL/camera'] = val;
+  return dbRef2.update(updates);
+}
+
+function update(val) {
+  var updates = {};
+  updates['/CR13_CONTROL/camera'] = val;
+  return dbRef2.update(updates);
+}
+
+function updateRelay1(val) {
+  var updates = {};
+  updates['/CR13_CONTROL/relay1'] = val;
+  return dbRef2.update(updates);
+}
+
+function updateRelay2(val) {
+  var updates = {};
+  updates['/CR13_CONTROL/relay2'] = val;
   return dbRef2.update(updates);
 }
 

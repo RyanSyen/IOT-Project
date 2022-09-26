@@ -14,6 +14,11 @@ import { MessageService } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 import { Router } from '@angular/router';
 
+//* declare js functions
+declare const updateBuzzer: any;
+declare const updateCamera: any;
+declare const updateRelay1: any;
+declare const updateRelay2: any;
 
 //* interface 
 interface sensorVal {
@@ -141,6 +146,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   @Output() messageEvent = new EventEmitter<string>();
+  @Output() navigateEvent = new EventEmitter<string>();
+
+  currentCCTVImageURL: any;
 
   constructor(private localService: LocalService, private elementRef: ElementRef, private db: AngularFireDatabase, private readonly afs: AngularFirestore, private firebaseService: FirebaseService, private randService: GenerateRandService, private messageService: MessageService, private primengConfig: PrimeNGConfig, private router: Router) {
 
@@ -214,6 +222,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.get_other_component_control();
 
     this.firebaseService.setAttendance(this.formattedDate());
+
+
   }
 
   startTime() {
@@ -1244,9 +1254,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   checkHumidity(val: string) {
     let value = parseInt(val);
     if (value > 65) {
+      //* update common resources
+      updateBuzzer('1');
+      updateRelay2('1');
+      updateCamera('1');
+      setTimeout(() => {
+        updateBuzzer('0');
+        updateRelay2('0');
+      }, 10500);
       let el2 = document?.getElementById('status2');
       el2?.classList.add('inactive');
-
       let el3 = document?.getElementById('humidityImg') as HTMLImageElement;
       el3.src = "../../../assets/dashboard/very-humid.png";
     } else {
@@ -1264,9 +1281,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   checkTemp(temp: string) {
     let val = parseInt(temp);
     if (val > 38) {
+      //* update common resources
+      updateBuzzer('1');
+      updateRelay2('1');
+      updateCamera('1');
+      setTimeout(() => {
+        updateBuzzer('0');
+        updateRelay2('0');
+      }, 10500);
+
       let el = document.getElementById('status1');
       el?.classList.add('inactive');
-
       let el1 = document?.getElementById('tempImg') as HTMLImageElement;
       el1.src = "../../../assets/dashboard/hot.png";
     } else {
@@ -1294,6 +1319,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
               this.parkingOccupied = action.payload.val();
 
               if (this.parkingOccupied > 149) {
+                //* update common resources
+                updateBuzzer('1');
+                updateRelay2('1');
+                updateCamera('1')
+                setTimeout(() => {
+                  updateBuzzer('0');
+                  updateRelay2('0');
+                }, 10500);
+
                 let el = document.getElementById('status3');
                 el?.classList.add('inactive');
 
@@ -1344,7 +1378,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
             if (key == 'doorbell') {
               this.doorbellSensor = action.payload.val();
               if (parseInt(this.doorbellSensor) == 1) {
+                //* get current CCTV from report
+                this.firebaseService.getCurrentCCTVImage().subscribe(res => {
+                  res.forEach(element => {
+                    this.currentCCTVImageURL = element;
+                    // this.openImage(element);
+                  });
 
+                })
+                //* update common resources
+                updateBuzzer('1');
+                updateRelay2('1');
+                updateCamera('1');
+                setTimeout(() => {
+                  updateBuzzer('0');
+                  updateRelay2('0');
+                }, 10500);
                 this.doorbellSensorStatus = 'active';
                 let el = document.getElementById('status5');
                 el?.classList.add('inactive');
@@ -1445,7 +1494,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onConfirm() {
+
     this.messageEvent.emit('doorbell')
+    this.openImage(this.currentCCTVImageURL);
     this.messageService.clear('c');
 
   }
@@ -1460,6 +1511,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   navigateToDoorbellPage() {
     this.router.navigate(['/sidemenu']);
+  }
+
+  openImage(url: any) {
+    var largeImage = document.getElementById('targetImg');
+    largeImage!.style.display = 'block';
+    largeImage!.style.width = 200 + "px";
+    largeImage!.style.height = 200 + "px";
+    window.open(url, 'Image', 'width=largeImage.stylewidth,height=largeImage.style.height,resizable=1');
   }
 
 }
