@@ -48,4 +48,12 @@ export class GenerateRandService {
 
     return Math.round(Math.random());
   }
+
+  generateWorkingHours() {
+    return Math.floor(Math.random() * (9 - 5 + 1) + 5);
+  }
+
+  generateCarPark() {
+    return Math.floor(Math.random() * (75 - 1 + 1) + 1);
+  }
 }

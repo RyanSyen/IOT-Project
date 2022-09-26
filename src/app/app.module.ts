@@ -47,6 +47,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MessageModule } from 'primeng/message';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 
 import { RealTimeDBComponent } from './component/real-time-db/real-time-db.component';
 import { TestComponent } from './component/test/test.component';
@@ -111,6 +112,7 @@ import { SignUpComponent } from './component/sign-up/sign-up.component';
     MessageModule,
     TabMenuModule,
     ButtonModule,
+    CalendarModule,
   ],
   providers: [
     ScreenTrackingService, UserTrackingService, MessageService, AngularFirestoreModule

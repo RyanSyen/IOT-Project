@@ -95,9 +95,17 @@ export class LocalService {
     // console.log(date1)
     this.date = date1;
     // document.getElementById("date")!.innerHTML = date;
-    return this.date;
+    var formatDate = curDay + "-" + testMonth + "-" + curYear;
+    return formatDate;
 
     var time = setTimeout(() => { this.getDateTime() }, 500);
+  }
+
+  convertDateFormat(date: any) {
+    // dd-mm-yyyy
+    const result = new Date(date).toLocaleDateString('en-GB');
+    let formatedDate = result.replace(/\//g, "-");
+    return formatedDate;
   }
 
 }

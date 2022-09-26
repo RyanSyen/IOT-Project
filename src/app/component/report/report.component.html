@@ -1,1 +1,102 @@
-<p>report works!</p>
+<div class="section">
+  <div class="tab-container">
+    <h2>Report</h2>
+    <p-tabMenu class="tab" #tab [model]="modules" [activeItem]="activeModule" (click)="activateMenu(tab)">
+    </p-tabMenu>
+  </div>
+
+
+  <!-- switch case -->
+  <div [ngSwitch]="activeModule">
+    <!-- case 1 -->
+    <div *ngSwitchCase="'Ventilation'">
+      <p-calendar #input [(ngModel)]="date" [inline]="true" [showWeek]="true" (click)="getDate(input)"></p-calendar>
+      <div [hidden]="visible">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class="header">Date</th>
+              <th scope="col" class="header">Floor</th>
+              <th scope="col" class="header">kWalts</th>
+              <th scope="col" class="header">Running Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of dates; index as i">
+              <th class="floorNum" scope="row">{{ selectedDate }}</th>
+              <td class="file-link">{{d.key}}</td>
+              <td>{{(d.payload.val().kWalts * 5).toFixed(2)}}</td>
+              <td>{{d.payload.val().runningHours}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <h3 class="summary">Summary</h3>
+          <p>Total energy consumed: {{totalKWalts}}</p>
+          <p>Cost on {{selectedDate}}: {{cost}}</p>
+          <p>Estimated cost saved: {{costSaved}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- case 2 -->
+    <div *ngSwitchCase="'Parking'">
+      <p-calendar #input [(ngModel)]="date" [inline]="true" [showWeek]="true" (click)="getDate1(input)"></p-calendar>
+      <div class="chart-container-doughnut">
+        <canvas id="MyDoughnutChart1">{{ chart }}</canvas>
+      </div>
+    </div>
+    <!-- case 3 -->
+    <div *ngSwitchCase="'Attendance'">
+      <p-calendar #input [(ngModel)]="date" [inline]="true" [showWeek]="true" (click)="getDate2(input)"></p-calendar>
+      <div [hidden]="visible">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class="header">Date</th>
+              <th scope="col" class="header">Floor</th>
+              <th scope="col" class="header">kWalts</th>
+              <th scope="col" class="header">Running Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of dates; index as i">
+              <th class="floorNum" scope="row">{{ selectedDate }}</th>
+              <td class="file-link">{{d.key}}</td>
+              <td>{{(d.payload.val().kWalts * 5).toFixed(2)}}</td>
+              <td>{{d.payload.val().runningHours}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <h3 class="summary">Summary</h3>
+          <p>Total energy consumed: {{totalKWalts}}</p>
+          <p>Cost on {{selectedDate}}: {{cost}}</p>
+          <p>Estimated cost saved: {{costSaved}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- case 4 -->
+    <div *ngSwitchCase="'Doorbell'">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" class="header">Name</th>
+            <th scope="col" class="header">Link</th>
+            <th scope="col" class="header">Image</th>
+            <th scope="col" class="header">Date Uploaded</th>
+            <th scope="col" class="header">Time Uploaded</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let img of test; index as i">
+            <th class="floorNum" scope="row">{{ img.name }}</th>
+            <td class="file-link"><a href="{{img.link}}" target="_blank">{{img.link}}</a></td>
+            <td> <img class="storage-img" [src]="img.link" alt="img"></td>
+            <td>{{img.date}}</td>
+            <td>{{img.time}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

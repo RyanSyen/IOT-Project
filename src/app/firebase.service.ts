@@ -26,6 +26,9 @@ export class FirebaseService {
   parking: any[] = [];
   totalB1: any;
   totalB2: any;
+  dates = [];
+  startDate = '2022-09-01';
+  endDate = '2022-12-30';
 
   constructor(private readonly afs: AngularFirestore, private firestore: AngularFirestore, private db: AngularFireDatabase, private randService: GenerateRandService) {
     // this.empAttendance = afs.collection<any>('empAttendance');
@@ -34,7 +37,6 @@ export class FirebaseService {
 
 
   ngOnInit(): void {
-
   }
 
   getEmployee() {
@@ -139,6 +141,105 @@ export class FirebaseService {
 
   }
 
+  getDatesInRange(startDate: any, endDate: any) {
+    var newStartDate = this.parseDate(startDate)
+    var newEndDate = this.parseDate(endDate)
+    const date = new Date(newStartDate.getTime());
+    const dates = [];
+    while (date <= newEndDate) {
+      dates.push(new Date(date).toLocaleDateString('en-GB'));
+      date.setDate(date.getDate() + 1);
+    }
+    return dates;
+  }
+
+  // parse a date in yyyy-mm-dd format
+  parseDate(input: any) {
+    var parts = input.match(/(\d+)/g);
+    // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+    return new Date(parts[0], parts[1] - 1, parts[2]); // months are 0-based
+  }
+
+  populateVentilationReport() {
+
+    let floor = ['B2', 'B1', 'G', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7'];
+    let time = ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00']
+
+    let dateArr = this.getDatesInRange(this.startDate, this.endDate);
+    dateArr.forEach(element => {
+      let date = element;
+      let result = date.replace(/\//g, "-");
+      floor.forEach(element => {
+        // console.log(element)
+        let hours = this.randService.generateWorkingHours();
+        // 5 HP Rated Power Consumption 4180 W
+        let kWalts = 4.18 * hours;
+
+        const arrr = {
+          [element]: [{
+            runningHours: hours,
+            kWalts: kWalts
+          }]
+        }
+        const report = {
+          runningHours: hours,
+          kWalts: kWalts
+        }
+        const template = {
+          floor: "",
+          runningHours: "",
+          kWalts: ""
+        }
+        const parking = {
+          hour: time,
+          occupied: this.randService.generateCarPark()
+        }
+        const attendenace = {
+          id: '0231323030303845373432424603',
+          name: 'Andy',
+          signinstatus: this.randService.generate0ir1()
+        }
+        // send to rtdb
+        // const ref = this.db.list("report/ventilation");
+        //! set is a destructive update 
+        // this.db.database.ref("report/ventilation").child(result).set(report)
+        // ref.set(result, arrr);
+        // ref.update(result, report)
+        // ref.push({ [result]: arrr });
+
+        //* ventilation
+        // this.addDetails(result, element, report);
+        //* parking
+        this.addDetails1(result, element, parking);
+      });
+    });
+
+  }
+
+  addDetails(date: string, key: string, value: any) {
+    // const ref = this.db.list("report/ventilation/" + date + "/" + key);
+    const ref = this.db.list("report/ventilation/" + date);
+    // ref.push(value);
+    ref.set(key, value)
+  }
+
+  getVentilationData(date: any) {
+    return this.db.list("report/ventilation/" + date).snapshotChanges();
+
+  }
+
+  addDetails1(date: string, key: string, value: any) {
+    const ref = this.db.list("report/parking/" + date);
+    ref.set(key, value)
+  }
+
+  getParkingData(date: any) {
+    return this.db.list("report/parking/" + date).snapshotChanges();
+  }
+
+  addAttendanceDate(date: any) {
+    return this.db.list("report/parking/" + date).snapshotChanges();
+  }
 }
 
 
