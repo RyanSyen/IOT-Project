@@ -3,6 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.1.
 
 Hosted on Firebase: https://iotassignment-aeea1.web.app
+
 Contact for more information: https://wa.link/1ktcpc
 
 ## Development server
