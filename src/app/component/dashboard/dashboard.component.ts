@@ -1253,7 +1253,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   checkHumidity(val: string) {
     let value = parseInt(val);
-    if (value > 65) {
+    if (value > 80) {
       //* update common resources
       updateBuzzer('1');
       updateRelay2('1');
@@ -1261,7 +1261,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         updateBuzzer('0');
         updateRelay2('0');
-      }, 10500);
+      }, 15500);
       let el2 = document?.getElementById('status2');
       el2?.classList.add('inactive');
       let el3 = document?.getElementById('humidityImg') as HTMLImageElement;
@@ -1288,7 +1288,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         updateBuzzer('0');
         updateRelay2('0');
-      }, 10500);
+      }, 15500);
 
       let el = document.getElementById('status1');
       el?.classList.add('inactive');
@@ -1326,7 +1326,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 setTimeout(() => {
                   updateBuzzer('0');
                   updateRelay2('0');
-                }, 10500);
+                }, 15500);
 
                 let el = document.getElementById('status3');
                 el?.classList.add('inactive');
@@ -1393,7 +1393,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 setTimeout(() => {
                   updateBuzzer('0');
                   updateRelay2('0');
-                }, 10500);
+                }, 15500);
                 this.doorbellSensorStatus = 'active';
                 let el = document.getElementById('status5');
                 el?.classList.add('inactive');
@@ -1431,7 +1431,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                   this.resetDoorbell();
                   el?.classList.remove('inactive');
                   el1.src = "../../../assets/dashboard/inactive-bell.png";
-                }, 10500);
+                }, 15500);
 
 
               } else {

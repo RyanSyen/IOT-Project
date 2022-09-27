@@ -105,7 +105,7 @@ export class FirebaseService {
   }
 
   getParkingB1() {
-    return this.db.list('parking/B1').valueChanges();
+    return this.db.list('parking/B1').snapshotChanges();
   }
 
   getB1(val: number) {
@@ -122,6 +122,11 @@ export class FirebaseService {
 
     const ref = this.db.list('OTHER_VALUES');
     ref.update('pSpace', { B2: val })
+  }
+
+  setB1(val: number) {
+    let ref = this.db.list("parking");
+    ref.update('B1', { 0: val })
   }
 
   getB1nB2() {

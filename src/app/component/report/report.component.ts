@@ -43,7 +43,7 @@ export class ReportComponent implements OnInit {
   img: any;
   profileUrl: Observable<string | null> | undefined;
   fileUploads: any;
-
+  total: any[] = [];
 
   constructor(private firebase: FirebaseService, private rand: GenerateRandService, private local: LocalService, private db: AngularFireDatabase, private elementRef: ElementRef, private storage: AngularFireStorage) {
     // this.db.list("report/ventilation").snapshotChanges().subscribe(res => {
@@ -117,16 +117,22 @@ export class ReportComponent implements OnInit {
       this.db.list("report/ventilation/" + formatedDate).snapshotChanges().subscribe(res => {
         // console.log(res)
         this.dates = res;
+        this.total = [];
         res.forEach((element: any) => {
-          let total = [];
-          total.push(element.payload.val().kWalts)
-          let totalKWalts = total.reduce((partialSum, a) => partialSum + a, 0);
-          this.totalKWalts = totalKWalts;
-          let result = (totalKWalts * 36.5 / 100).toFixed(2)
+
+          let amt = parseInt(element.payload.val().kWalts) * 5;
+          // console.log(amt)
+          this.total.push(amt)
+          let totalKWalts = this.total.reduce((partialSum: any, a: any) => partialSum + a, 0);
+          this.totalKWalts = totalKWalts.toFixed(2);
+          let result = (parseInt(totalKWalts) * 36.5 / 100).toFixed(2)
           this.cost = result;
-          this.costSaved = (13.73 - parseInt(this.cost)).toFixed(2);
+          let init = (4.18 * 5 * 9 * 10 * 36.5 / 100);
+          console.log(init, this.cost)
+          this.costSaved = (init - parseInt(this.cost)).toFixed(2);
 
         });
+        console.log(this.total)
       })
     } else {
       this.visible = true;

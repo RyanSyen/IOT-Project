@@ -4,36 +4,38 @@
     <p-tabMenu class="tab" #tab [model]="floors" [activeItem]="activeItem" (click)="activateMenu(tab)">
     </p-tabMenu>
   </div>
-  <div *ngIf="visible">
+  <div *ngIf="!visible">
     <div class="carpark">
       <div class="carpark-container" *ngFor="let b2 of b2Parking; index as i">
-        <p *ngIf="b2==='1'" class="occupied">
+        <p *ngIf="b2=='1'" class="occupied">
           <img src="../../../assets/car.png" alt="car">
         </p>
-        <p *ngIf="b2==='0'" class="vacant">
+        <p *ngIf="b2=='0'" class="vacant">
           <span>&nbsp;</span>
         </p>
       </div>
     </div>
     <div>
       <h4>Car Park Summary: {{b2ParkingCount}} / 75</h4>
+
     </div>
   </div>
 
 
-  <div *ngIf="!visible">
+  <div *ngIf="visible">
     <div class="carpark">
       <div class="carpark-container" *ngFor="let b1 of b1Parking; index as i">
-        <p *ngIf="b1==='1'" class="occupied">
+        <p *ngIf="b1.payload.val()=='1'" class="occupied">
           <img src="../../../assets/car.png" alt="car">
         </p>
-        <p *ngIf="b1==='0'" class="vacant">
+        <p *ngIf="b1.payload.val()=='0'" class="vacant">
           <span>&nbsp;</span>
         </p>
       </div>
     </div>
     <div>
       <h4>Car Park Summary: {{b1ParkingCount}} / 75</h4>
+      <h4>Car slot 1 status: {{status}}</h4>
     </div>
   </div>
 

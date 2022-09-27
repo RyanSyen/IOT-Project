@@ -1,5 +1,6 @@
+import { collection } from 'firebase/firestore';
 import { onValue } from '@angular/fire/database';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Component, Injectable, OnInit, ElementRef } from '@angular/core';
 import { Floor } from 'src/app/interfaces/floor';
 import { LocalService } from 'src/app/services/local.service';
@@ -22,6 +23,7 @@ export class TempNventComponent implements OnInit {
 
   private utilitiesCollection: AngularFirestoreCollection<any>;
   utilities: Observable<any>;
+  // utilities: any;
 
   //* chart
 
@@ -93,11 +95,33 @@ export class TempNventComponent implements OnInit {
   testHumidityValue = [this.randService.generateRandHumidity()];
   timeLabeltest = [''];
 
+  firstAvgTemp: any;
+  firstAvgHumidity: any;
+
+  testCollection: any;
+  testData: any;
+
   constructor(private localService: LocalService, private readonly afs: AngularFirestore, private randService: GenerateRandService, private elementRef: ElementRef) {
     this.utilitiesCollection = afs.collection<any>('utilities');
     this.utilities = this.utilitiesCollection.valueChanges({ idField: 'id' });
 
-    this.get_util_records_using_valueChanges();
+    // this.utilitiesCollection.snapshotChanges().pipe(
+    //   map(actions => actions.map(a => {
+    //     const data = a.payload.doc.data();
+    //     console.log(a)
+    //   })))
+
+    //! not working
+    // this.utilitiesCollection.snapshotChanges().subscribe(res => {
+    //   console.log(res)
+    //   this.testData = res;
+
+    // })
+
+    // this.testCollection = afs.doc('utilities/1');
+    // let data = this.testCollection.collection('avgHumidity').valueChanges();
+    // this.testData = this.testCollection.valueChanges();
+
   }
 
   ngOnInit(): void {
@@ -110,12 +134,50 @@ export class TempNventComponent implements OnInit {
     //     this.utilitiesCollection.doc(element.name).set(element);
     //   });
     // });
+
+
+
+    // this.utilities = this.utilitiesCollection.snapshotChanges();
+
+
+    this.get_util_records_using_valueChanges();
+
+
     this.startTime();
     this.runCharts();
 
     const color1 = this.randService.generateRandColor();
     let arr: any[] = this.randService.generateRandColor() ?? [];
     const [first, second] = [...arr];
+    this.readData();
+  }
+
+  readData() {
+    this.testData.subscribe((res: any) => {
+      console.log(res)
+      this.firstAvgTemp = res[0].avgTemp;
+      this.firstAvgHumidity = res[0].avgHumidity;
+    })
+    this.checkTemp(this.firstAvgTemp);
+    this.checkHumidity(this.firstAvgHumidity);
+  }
+
+  checkTemp(temp: any) {
+    let ref = this.utilitiesCollection.doc('1')
+    if (temp > 38) {
+      ref.update({ ventilationStatus: 'on' });
+    } else {
+      ref.update({ ventilationStatus: 'off' });
+    }
+  }
+
+  checkHumidity(humidity: any) {
+    let ref = this.utilitiesCollection.doc('1')
+    if (humidity > 80) {
+      ref.update({ ventilationStatus: 'on' });
+    } else {
+      ref.update({ ventilationStatus: 'off' });
+    }
   }
 
   startTime() {
@@ -188,10 +250,32 @@ export class TempNventComponent implements OnInit {
 
   get_util_records_using_valueChanges() {
 
-    this.utilities.subscribe(res => {
-      // console.log(res);
+    // valueChanges
+    this.utilities.subscribe((res: any) => {
+      console.log(res);
       this.floorDet = res;
+      // console.log(res[0].avgTemp);
+      this.firstAvgTemp = res[0].avgTemp;
+      this.firstAvgHumidity = res[0].avgHumidity;
+      // res.forEach((element: any) => {
+      //   // console.log(element.avgTemp, element.avgHumidity)
+      //   this.firstAvgTemp = element.avgTemp;
+      //   this.firstAvgHumidity = element.avgHumidity;
+
+      // });
+
+      // this.checkTemp(this.firstAvgTemp);
+      // this.checkHumidity(this.firstAvgHumidity);
     })
+
+    // snapcshotChanges
+    // this.utilities.pipe(
+    //   map((a: any) => {
+    //     const data = a.payload.doc.data();
+    //     console.log(data)
+    //   })
+    // )
+
   }
 
   createChartB2() {
